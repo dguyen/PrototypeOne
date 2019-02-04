@@ -119,4 +119,12 @@ public class Inventory : MonoBehaviour {
         }
         return false;
     }
+
+    public GameObject GetSelectedItem() {
+        return storedObjects[selectedItem];
+    }
+
+    public IEntity GetSelectedEntity() {
+        return entities[selectedItem];
+    }
 }
