@@ -19,10 +19,7 @@ public class PlayerPickUp : MonoBehaviour, IAction {
         IEntity[] entityList = other.GetComponents<IEntity>();
         foreach (IEntity entity in entityList) {
             if (entity.HasCapability(Capability.PICKABLE)) {
-                if (inventory.AddItem(entity)) {
-                    other.gameObject.SetActive(false);
-                    Destroy(other.gameObject);
-                }
+                inventory.AddItem(other.gameObject);
             }
         }
     }
