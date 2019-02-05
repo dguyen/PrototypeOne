@@ -300,6 +300,9 @@ MonoBehaviour:
   startingHealth: 100
   currentHealth: 0
   healthSlider: {fileID: 0}
+  damageImage: {fileID: 0}
+  flashSpeed: 5
+  flashColour: {r: 1, g: 0, b: 0, a: 0.1}
 --- !u!114 &69096937
 MonoBehaviour:
   m_ObjectHideFlags: 0
