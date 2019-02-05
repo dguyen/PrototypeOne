@@ -104,8 +104,8 @@ NavMeshSettings:
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
-    manualCellSize: 0
-    cellSize: 0.13333334
+    manualCellSize: 1
+    cellSize: 0.01
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -457,7 +457,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &416341443
 Transform:
@@ -3851,6 +3851,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Constraints
       value: 84
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887575919441962978, guid: f48e25e21279db641b36d955da307ec0,
+        type: 3}
+      propertyPath: m_StoppingDistance
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887575919441962978, guid: f48e25e21279db641b36d955da307ec0,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887575919441962978, guid: f48e25e21279db641b36d955da307ec0,
+        type: 3}
+      propertyPath: m_Height
+      value: 1.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f48e25e21279db641b36d955da307ec0, type: 3}
