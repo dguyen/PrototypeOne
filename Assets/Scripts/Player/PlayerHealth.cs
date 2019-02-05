@@ -9,7 +9,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     public int currentHealth;
     public Slider healthSlider;
 
-    PlayerMovement playerMovement;
+    PlayerActionManager playerActionManager;
     bool isDead;
     bool damaged;
 
@@ -19,7 +19,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     }
 
     void Awake () {
-        playerMovement = GetComponent <PlayerMovement> ();
+        playerActionManager = GetComponent<PlayerActionManager> ();
         currentHealth = startingHealth;
     }
 
@@ -45,7 +45,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
     void Death () {
         isDead = true;
-        playerMovement.enabled = false;
+        playerActionManager.DisableAll();
         // Todo: Play death sound
     }
 }

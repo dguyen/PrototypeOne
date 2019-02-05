@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDrop : MonoBehaviour
-{
+public class PlayerDrop : MonoBehaviour, IAction {
     public KeyCode dropKey = KeyCode.C;
 
     private Inventory inventory;

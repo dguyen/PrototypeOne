@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerMovement : MonoBehaviour
-{
+public class PlayerMovement : MonoBehaviour, IAction {
     [Tooltip("How fast the player moves")]
     public float speed = 6f;
  
@@ -96,4 +95,10 @@ public class PlayerMovement : MonoBehaviour
     bool isSprinting() {
         return Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift);
     }
+
+    public bool CanDo() {
+        return enabled;
+    }
+
+    public void Act() {}
 }
