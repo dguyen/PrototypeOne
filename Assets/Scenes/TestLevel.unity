@@ -199,6 +199,10 @@ PrefabInstance:
       propertyPath: inventoryImages.Array.data[2]
       value: 
       objectReference: {fileID: 1821599208}
+    - target: {fileID: 2019876971, guid: af478c9a71170c342982f175b7a4cc0c, type: 3}
+      propertyPath: m_Constraints
+      value: 84
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af478c9a71170c342982f175b7a4cc0c, type: 3}
 --- !u!1 &78113199
@@ -3767,6 +3771,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3252654183289681104, guid: f48e25e21279db641b36d955da307ec0,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 84
+      objectReference: {fileID: 0}
+    - target: {fileID: 8887575919441962978, guid: f48e25e21279db641b36d955da307ec0,
+        type: 3}
+      propertyPath: m_AutoBraking
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f48e25e21279db641b36d955da307ec0, type: 3}
