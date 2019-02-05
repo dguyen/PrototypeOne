@@ -52,7 +52,11 @@ public class EnemyAttack : MonoBehaviour
         timer = 0f;
         if(playerHealth.currentHealth > 0)
         {
-            playerHealth.TakeDamage(attackDamage);
+            IDamagable hit = (IDamagable)player.gameObject.GetComponent(typeof(IDamagable));
+            if (hit != null)
+            {
+                hit.TakeDamage(attackDamage);
+            }
         }
     }
 }
