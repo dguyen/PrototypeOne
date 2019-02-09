@@ -25,7 +25,6 @@ public class SpawnManager : MonoBehaviour {
 
     private IEnumerator BeginSpawning() {
         yield return StartCoroutine(Spawn());
-        Debug.Log(enemiesToSpawn);
         if (enemiesToSpawn <= 0) {
             yield return null;
         } else {
