@@ -38,9 +38,11 @@ public class Inventory : MonoBehaviour {
             storedObjects[selectedItem].SetActive(false);
         }
 
-        inventoryImages[selectedItem].color = new Color32(160, 255, 255, 255);
-        selectedItem = newSelectedItem;
-        inventoryImages[selectedItem].color = new Color32(212, 100, 50, 255);
+        if (inventoryImages[selectedItem]) {
+            inventoryImages[selectedItem].color = new Color32(160, 255, 255, 255);
+            selectedItem = newSelectedItem;
+            inventoryImages[selectedItem].color = new Color32(212, 100, 50, 255);
+        }
 
         if (storedObjects[selectedItem] != null) {
             storedObjects[selectedItem].SetActive(true);
