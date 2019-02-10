@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Arrow : MonoBehaviour {
+public class Arrow : Entity {
     public int perArrowDamage = 10;
 
     private bool stuck;
@@ -24,15 +24,18 @@ public class Arrow : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
-            // Todo: PickUp
-            return;
+            Bow bow = other.gameObject.GetComponentInChildren<Bow>();
+            if (bow) {
+                bow.IncreaseAmmo(1);
+                gameObject.SetActive(false);
+                Destroy(gameObject);
+            }
         }
     }
 
     private void StickArrow(Collision toStick) {
         stuck = true;
         Destroy(gameObject.GetComponent<Rigidbody>());
-        gameObject.GetComponent<Collider>().isTrigger = true;
         var emptyObject = new GameObject();
         if (toStick.gameObject.isStatic) {
             emptyObject.transform.parent = toStick.GetContact(0).thisCollider.transform;

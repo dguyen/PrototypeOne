@@ -12,10 +12,11 @@ GameObject:
   - component: {fileID: 9089268014895176666}
   - component: {fileID: 6983881262376601011}
   - component: {fileID: 7475763478673265440}
+  - component: {fileID: 151753023247317570}
   - component: {fileID: 3901809389279777501}
   - component: {fileID: 1951545441781512684}
   m_Layer: 0
-  m_Name: ArrowV2
+  m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,6 +95,20 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &151753023247317570
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823252154577712441}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 1
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3901809389279777501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 774f753f453a3f74e87fe22c4ec30e0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entitySprite: {fileID: 0}
   perArrowDamage: 10
 --- !u!54 &1951545441781512684
 Rigidbody:
