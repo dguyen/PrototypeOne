@@ -23,13 +23,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1518964381}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3.97}
+  m_LocalRotation: {x: -0.021814799, y: 0, z: 0, w: 0.999762}
+  m_LocalPosition: {x: 0, y: 0.306, z: 3.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4938949512620481429}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -2.5, y: 0, z: 0}
 --- !u!1 &7389135577091568411
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,3 +155,7 @@ MonoBehaviour:
   ArrowSpawn: {fileID: 1518964382}
   Arrow: {fileID: 1951545441781512684, guid: cc82d7b21d36d2d4babb9f19f3238f2d, type: 3}
   ArrowSpeed: 150
+  ChargeSlider: {fileID: 0}
+  MinLaunchForce: 15
+  MaxLaunchForce: 30
+  MaxChargeTime: 0.75

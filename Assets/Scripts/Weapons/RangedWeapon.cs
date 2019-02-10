@@ -14,12 +14,14 @@ public class RangedWeapon : Weapon {
         ammoCount = initialAmmoCount;
     }
 
-    void OnEnable() {
+    public virtual void OnEnable() {
         UpdateAmmoCount();
     }
 
-    void OnDisable() {
-        ammoCountText.text = "";
+    public virtual void OnDisable() {
+        if (ammoCountText) {
+            ammoCountText.text = "";
+        }
     }
 
     public override bool CanShoot() {
