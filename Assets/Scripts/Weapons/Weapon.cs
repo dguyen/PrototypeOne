@@ -5,7 +5,7 @@ using UnityEngine;
 public class Weapon : Entity {
     private Inventory inventory;
 
-    void Start() {
+    public virtual void Start() {
         base.AddCapability(Capability.PICKABLE);
         base.AddCapability(Capability.DROPABLE);
         base.AddCapability(Capability.WEAPON);

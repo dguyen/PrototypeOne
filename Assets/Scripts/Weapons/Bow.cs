@@ -11,8 +11,7 @@ public class Bow : RangedWeapon {
         if(Input.GetButtonDown("Fire1")) {
             Rigidbody arrowRigidbody = Instantiate(Arrow, ArrowSpawn.position, ArrowSpawn.rotation) as Rigidbody;
             arrowRigidbody.AddForce(ArrowSpawn.forward * ArrowSpeed);
-            ammoCount--;
-            UpdateAmmoCount();
+            DecreaseAmmo(1);
         }
     }
 }

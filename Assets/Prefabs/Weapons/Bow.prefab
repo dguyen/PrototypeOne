@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entitySprite: {fileID: 21300000, guid: 2062829466eaaba4894a346b79d5ec22, type: 3}
-  ammoCount: 20
+  initialAmmoCount: 20
   ammoCountText: {fileID: 0}
   ArrowSpawn: {fileID: 1518964382}
   Arrow: {fileID: 1951545441781512684, guid: cc82d7b21d36d2d4babb9f19f3238f2d, type: 3}

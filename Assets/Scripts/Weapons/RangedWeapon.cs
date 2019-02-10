@@ -4,8 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class RangedWeapon : Weapon {
-    public int ammoCount = 20;
+    public int initialAmmoCount = 20;
     public Text ammoCountText;
+
+    private int ammoCount;
+
+    public override void Start() {
+        base.Start();
+        ammoCount = initialAmmoCount;
+    }
 
     void OnEnable() {
         UpdateAmmoCount();
@@ -23,5 +30,26 @@ public class RangedWeapon : Weapon {
         if (ammoCountText) {
             ammoCountText.text = ammoCount.ToString();
         }
+    }
+
+    public void IncreaseAmmo(int ammo) {
+        SetAmmo(ammoCount + ammo);
+    }
+
+    public void DecreaseAmmo(int ammo) {
+        SetAmmo(ammoCount - ammo);
+    }
+
+    public void SetAmmo(int ammo) {
+        if (ammo <= 0) {
+            ammoCount = 0;
+        } else {
+            ammoCount = ammo;
+        }
+        UpdateAmmoCount();
+    }
+
+    public int GetAmmoCount() {
+        return ammoCount;
     }
 }
