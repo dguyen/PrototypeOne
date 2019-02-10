@@ -19,6 +19,17 @@ public class EnemyHealth : MonoBehaviour, IDamagable
     {
         if(isDead)
         {
+            foreach (var entity in gameObject.GetComponentsInChildren<Entity>())
+            {
+                entity.transform.parent = null;
+                entity.gameObject.SetActive(true);
+                Rigidbody tmpRb = entity.GetComponent<Rigidbody>();
+                if (tmpRb) {
+                    tmpRb.useGravity = true;
+                } else {
+                    entity.gameObject.AddComponent<Rigidbody>();
+                }
+            }
             Destroy(gameObject);
         }
     }
