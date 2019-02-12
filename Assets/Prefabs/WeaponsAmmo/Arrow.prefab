@@ -123,6 +123,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entitySprite: {fileID: 0}
   perArrowDamage: 10
+  playerMoney: {fileID: 0}
+  moneyPerHit: 20
 --- !u!54 &1951545441781512684
 Rigidbody:
   m_ObjectHideFlags: 0
