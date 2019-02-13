@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Arrow : Entity {
     public int perArrowDamage = 10;
+    public int moneyPerHit = 20;
+
+    private PlayerMoney playerMoney;
 
     private bool stuck;
 
     void Start() {
         Destroy(gameObject, 120);
+        playerMoney = FindObjectOfType<PlayerMoney>();
     }
 
     private void OnCollisionEnter(Collision other) {
@@ -19,6 +23,7 @@ public class Arrow : Entity {
         IDamagable[] damagables = other.gameObject.GetComponents<IDamagable>();
         foreach (IDamagable damagable in damagables) {
             damagable.TakeDamage(perArrowDamage);
+            playerMoney.IncreaseMoney(moneyPerHit);
         }
     }
 
