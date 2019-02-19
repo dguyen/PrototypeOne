@@ -1095,7 +1095,7 @@ MonoBehaviour:
   minimumSpawnAmount: 5
   spawnArea: {fileID: 24435183}
   enemies:
-  - {fileID: 3252654183289681105, guid: f48e25e21279db641b36d955da307ec0, type: 3}
+  - {fileID: 8247845191117845695, guid: f48e25e21279db641b36d955da307ec0, type: 3}
 --- !u!114 &63719010
 MonoBehaviour:
   m_ObjectHideFlags: 0
