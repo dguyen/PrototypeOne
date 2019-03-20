@@ -8,7 +8,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable
     public int currentHealth;
     public float sinkSpeed = 0.25f;
 
-    CapsuleCollider capsuleCollider;
+    Collider enemyCollider;
     Animator animator;
     bool isDead;
     bool isSinking = false;
@@ -17,7 +17,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable
     {
         animator = GetComponent <Animator> ();
         currentHealth = spawnHealth;
-        capsuleCollider = GetComponent<CapsuleCollider>();
+        enemyCollider = GetComponent<Collider>();
     }
 
     void Update()
@@ -48,7 +48,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable
     void Death()
     {
         isDead = true;
-        capsuleCollider.isTrigger = true;
+        enemyCollider.isTrigger = true;
         animator.SetTrigger ("Dead");
         GetComponent <UnityEngine.AI.NavMeshAgent> ().enabled = false;
         GetComponent <Rigidbody> ().isKinematic = true;
