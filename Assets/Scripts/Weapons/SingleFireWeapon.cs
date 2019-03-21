@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SingleFireWeapon : RangedWeapon {
     public int damagePerShot = 30;
-    public float fireDelay = 0.175f;
+    public float fireDelay = 0.2f;
     public float range = 100f;
     public Transform gunPoint;
 
@@ -20,13 +20,16 @@ public class SingleFireWeapon : RangedWeapon {
         shootableMask = LayerMask.GetMask("Shootable");
         gunLine = GetComponent<LineRenderer>();
         gunLight = GetComponent<Light>();
+        if (fireDelay < effectsDisplayTime) {
+            effectsDisplayTime = fireDelay;
+        }
     }
 
     public override void Update() {
         base.Update();
         timer += Time.deltaTime;
         if(timer >= fireDelay * effectsDisplayTime) {
-            DisableEffects ();
+            DisableEffects();
         }
     }
 
