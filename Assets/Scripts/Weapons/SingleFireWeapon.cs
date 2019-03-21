@@ -7,6 +7,7 @@ public class SingleFireWeapon : RangedWeapon {
     public float fireDelay = 0.2f;
     public float range = 100f;
     public Transform gunPoint;
+    public ParticleSystem gunParticles;
 
     private float timer;
     private float effectsDisplayTime = 0.2f;
@@ -47,8 +48,8 @@ public class SingleFireWeapon : RangedWeapon {
 
     private void Fire() {
         gunLight.enabled = true;
-
-        // Gun Particle System
+        gunParticles.Stop();
+        gunParticles.Play();
 
         gunLine.enabled = true;
         gunLine.SetPosition(0, gunPoint.position);
