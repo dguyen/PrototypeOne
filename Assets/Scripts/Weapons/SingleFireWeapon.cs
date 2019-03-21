@@ -54,9 +54,6 @@ public class SingleFireWeapon : RangedWeapon {
         shootRay.direction = gunPoint.forward;
 
         if (Physics.Raycast(shootRay, out shootHit, range, shootableMask)) {
-            if (shootHit.rigidbody.tag == "Player") {
-                return;
-            }
             IDamagable damagable = shootHit.collider.GetComponent<IDamagable>();
             if (damagable != null) {
                 damagable.TakeDamage(damagePerShot);

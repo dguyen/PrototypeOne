@@ -12,7 +12,7 @@ public class Weapon : Entity {
         inventory = FindObjectOfType<Inventory>();
     }
 
-    void Update() {
+    public virtual void Update() {
         if(CanShoot()) {
             WeaponActive();
         }
