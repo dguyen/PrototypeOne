@@ -60,6 +60,7 @@ public class Bow : RangedWeapon {
 
         Rigidbody arrowRigidbody = Instantiate(Arrow, ArrowSpawn.position, ArrowSpawn.rotation) as Rigidbody;
         Arrow newArrow = arrowRigidbody.gameObject.GetComponent<Arrow>();
+        newArrow.moneyPerHit = pointsPerHit;
         float damageMultiplier = ((CurrentLaunchForce - MinLaunchForce) / 10) + 1;
         newArrow.perArrowDamage = Mathf.RoundToInt(newArrow.perArrowDamage * damageMultiplier);
         arrowRigidbody.velocity = ArrowSpawn.forward * CurrentLaunchForce;
