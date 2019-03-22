@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : Entity {
+    public int pointsPerHit;
+
     private Inventory inventory;
 
     public virtual void Start() {
@@ -12,7 +14,7 @@ public class Weapon : Entity {
         inventory = FindObjectOfType<Inventory>();
     }
 
-    void Update() {
+    public virtual void Update() {
         if(CanShoot()) {
             WeaponActive();
         }

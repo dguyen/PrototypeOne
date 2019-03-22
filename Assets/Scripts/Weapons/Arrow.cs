@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class Arrow : Entity {
     public int perArrowDamage = 10;
-    public int moneyPerHit = 20;
+    public int moneyPerHit;
 
     private PlayerMoney playerMoney;
-
     private bool stuck;
 
     void Start() {
