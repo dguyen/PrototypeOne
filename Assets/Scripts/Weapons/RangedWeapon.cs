@@ -8,13 +8,12 @@ public class RangedWeapon : Weapon {
     public Text ammoCountText;
 
     private int ammoCount;
-    private int maxAmmo;
 
     public override void Start() {
         base.Start();
         base.AddCapability(Capability.REFILLABLE);
+        ammoCountText = GameObject.Find("AmmoCountText").GetComponent<Text>();
         ammoCount = ammoCapacity;
-        maxAmmo = ammoCapacity;
     }
 
     public virtual void OnEnable() {
@@ -60,5 +59,6 @@ public class RangedWeapon : Weapon {
 
     public void RefillAmmo() {
         SetAmmo(ammoCapacity);
+        UpdateAmmoCount();
     }
 }

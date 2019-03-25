@@ -18,6 +18,7 @@ public class Bow : RangedWeapon {
 
     public override void Start() {
         base.Start();
+        ChargeSlider = GameObject.Find("ChargeSlider").GetComponent<Slider>();
         ChargeSpeed = (MaxLaunchForce - MinLaunchForce) / MaxChargeTime;
         ChargeSlider.maxValue = MaxLaunchForce;
         ChargeSlider.minValue = MinLaunchForce;

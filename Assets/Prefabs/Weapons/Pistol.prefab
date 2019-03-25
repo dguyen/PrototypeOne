@@ -4973,8 +4973,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b72dbb978ada84ea27268f6c243ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityName: Pistol
   entitySprite: {fileID: 21300000, guid: 8cb4a7afeed2ff744ad9548895866f5b, type: 3}
-  initialAmmoCount: 30
+  pointsPerHit: 20
+  ammoCapacity: 20
   ammoCountText: {fileID: 0}
   damagePerShot: 20
   fireDelay: 0.2

@@ -15,7 +15,7 @@ public class PlayerMoney : MonoBehaviour {
     }
 
     public int GetPlayerMoney() {
-        return initialPlayerMoney;
+        return playerMoney;
     }
 
     public void IncreaseMoney(int money) {
