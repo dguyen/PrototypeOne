@@ -1,5 +1,6 @@
 public enum Capability {
   PICKABLE,
   DROPABLE,
-  WEAPON
+  WEAPON,
+  REFILLABLE
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour {
-
     public const int numItemSlots = 3;
     public Image[] inventoryImages = new Image[numItemSlots];
     public GameObject itemSpawn;
@@ -128,5 +127,14 @@ public class Inventory : MonoBehaviour {
 
     public IEntity GetSelectedEntity() {
         return entities[selectedItem];
+    }
+
+    public IEntity GetItemEntity(string itemName) {
+        foreach (var entity in entities) {
+            if (entity != null && entity.GetName() == itemName) {
+                return entity;
+            }           
+        }
+        return null;
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Entity: MonoBehaviour, IEntity {
-    
+    public string entityName;
     // public string shortDescription;
     // public string longDescription;
     public Sprite entitySprite;
@@ -32,5 +32,9 @@ public class Entity: MonoBehaviour, IEntity {
 
     public Sprite GetSprite() {
         return entitySprite;
+    }
+
+    public string GetName() {
+        return entityName;
     }
 }

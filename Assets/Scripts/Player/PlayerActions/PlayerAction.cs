@@ -2,5 +2,6 @@
     PlayerDrop,
     PlayerPickUp,
     PlayerMovement,
+    PlayerInteract,
     Inventory
 }
