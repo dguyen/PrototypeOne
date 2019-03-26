@@ -112,7 +112,7 @@ public class Inventory : MonoBehaviour {
     }
 
     private IEntity GetEntity(int index) {
-        GameObject tmpObject = storedObjects[selectedItem];
+        GameObject tmpObject = storedObjects[index];
         if (tmpObject != null) {
             return tmpObject.GetComponent<IEntity>();
         }
