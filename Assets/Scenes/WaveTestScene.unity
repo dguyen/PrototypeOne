@@ -13699,6 +13699,38 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 11545409}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &867624824
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 867624825}
+  m_Layer: 0
+  m_Name: BuyRefillWeapons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &867624825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867624824}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7393575439269390982}
+  - {fileID: 1537673628}
+  m_Father: {fileID: 1242212937}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &871464868
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21011,6 +21043,7 @@ Transform:
   - {fileID: 23822416}
   - {fileID: 1158591073}
   - {fileID: 23520993}
+  - {fileID: 867624825}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
@@ -26359,6 +26392,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4956255927207046, guid: c04be9f92ebf58b46b2204ac3aaa8785,
     type: 3}
   m_PrefabInstance: {fileID: 189958371}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1537673628 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7056391429047472735, guid: 97ff0a3e6116f374ca915417db0ff196,
+    type: 3}
+  m_PrefabInstance: {fileID: 7056391428164508611}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1557381375
 GameObject:
@@ -39391,3 +39430,162 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &7056391428164508611
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 867624825}
+    m_Modifications:
+    - target: {fileID: 7056391429047472730, guid: 97ff0a3e6116f374ca915417db0ff196,
+        type: 3}
+      propertyPath: m_Name
+      value: BuyRefillBow
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056391429047472735, guid: 97ff0a3e6116f374ca915417db0ff196,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 37.168983
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056391429047472735, guid: 97ff0a3e6116f374ca915417db0ff196,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.07800001
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056391429047472735, guid: 97ff0a3e6116f374ca915417db0ff196,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -33.30642
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056391429047472735, guid: 97ff0a3e6116f374ca915417db0ff196,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056391429047472735, guid: 97ff0a3e6116f374ca915417db0ff196,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.75803596
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056391429047472735, guid: 97ff0a3e6116f374ca915417db0ff196,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056391429047472735, guid: 97ff0a3e6116f374ca915417db0ff196,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.6522128
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056391429047472735, guid: 97ff0a3e6116f374ca915417db0ff196,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056391429047472735, guid: 97ff0a3e6116f374ca915417db0ff196,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056391429047472735, guid: 97ff0a3e6116f374ca915417db0ff196,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -53.583004
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056391429047472735, guid: 97ff0a3e6116f374ca915417db0ff196,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 97ff0a3e6116f374ca915417db0ff196, type: 3}
+--- !u!1001 &7143352181709578017
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 867624825}
+    m_Modifications:
+    - target: {fileID: 4698154812980580971, guid: f4dae76546be52b4a97df28676e5f8e0,
+        type: 3}
+      propertyPath: m_Name
+      value: BuyRefillPistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 412371038173394343, guid: f4dae76546be52b4a97df28676e5f8e0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 21.431557
+      objectReference: {fileID: 0}
+    - target: {fileID: 412371038173394343, guid: f4dae76546be52b4a97df28676e5f8e0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.10906586
+      objectReference: {fileID: 0}
+    - target: {fileID: 412371038173394343, guid: f4dae76546be52b4a97df28676e5f8e0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -35.697514
+      objectReference: {fileID: 0}
+    - target: {fileID: 412371038173394343, guid: f4dae76546be52b4a97df28676e5f8e0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.027565952
+      objectReference: {fileID: 0}
+    - target: {fileID: 412371038173394343, guid: f4dae76546be52b4a97df28676e5f8e0,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.98031616
+      objectReference: {fileID: 0}
+    - target: {fileID: 412371038173394343, guid: f4dae76546be52b4a97df28676e5f8e0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.12444726
+      objectReference: {fileID: 0}
+    - target: {fileID: 412371038173394343, guid: f4dae76546be52b4a97df28676e5f8e0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.15077567
+      objectReference: {fileID: 0}
+    - target: {fileID: 412371038173394343, guid: f4dae76546be52b4a97df28676e5f8e0,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 412371038173394343, guid: f4dae76546be52b4a97df28676e5f8e0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 13.632001
+      objectReference: {fileID: 0}
+    - target: {fileID: 412371038173394343, guid: f4dae76546be52b4a97df28676e5f8e0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -116.866005
+      objectReference: {fileID: 0}
+    - target: {fileID: 412371038173394343, guid: f4dae76546be52b4a97df28676e5f8e0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 5.407
+      objectReference: {fileID: 0}
+    - target: {fileID: 412371038173394343, guid: f4dae76546be52b4a97df28676e5f8e0,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 412371038173394343, guid: f4dae76546be52b4a97df28676e5f8e0,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 412371038173394343, guid: f4dae76546be52b4a97df28676e5f8e0,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f4dae76546be52b4a97df28676e5f8e0, type: 3}
+--- !u!4 &7393575439269390982 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 412371038173394343, guid: f4dae76546be52b4a97df28676e5f8e0,
+    type: 3}
+  m_PrefabInstance: {fileID: 7143352181709578017}
+  m_PrefabAsset: {fileID: 0}
