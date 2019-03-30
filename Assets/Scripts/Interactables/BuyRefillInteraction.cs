@@ -41,7 +41,7 @@ public class BuyRefillInteraction : MonoBehaviour, IInteractable {
             // Todo: Inform player "Funds lacking"
         } else {
             // Todo: Indicate to player that item has been purchased
-            Instantiate(Item, transform.position, Quaternion.identity);
+            PlayerInventory.AddItem(Instantiate(Item, transform.position, Quaternion.identity));
             PlayerMoney.DecreaseMoney(BuyPrice);
         }
     }

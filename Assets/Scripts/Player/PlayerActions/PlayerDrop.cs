@@ -1,29 +1,29 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿// using System.Collections;
+// using System.Collections.Generic;
+// using UnityEngine;
 
-public class PlayerDrop : MonoBehaviour, IAction {
-    public KeyCode dropKey = KeyCode.C;
+// public class PlayerDrop : MonoBehaviour, IAction {
+//     public KeyCode dropKey = KeyCode.C;
 
-    private Inventory inventory;
+//     private Inventory inventory;
 
-    void Start() {
-        inventory = FindObjectOfType<Inventory>();
-    }
+//     void Start() {
+//         inventory = FindObjectOfType<Inventory>();
+//     }
 
-    void Update() {
-        if (Input.GetKeyDown(dropKey)) {
-            Act();
-        }
-    }
+//     void Update() {
+//         if (Input.GetKeyDown(dropKey)) {
+//             Act();
+//         }
+//     }
 
-    public bool CanDo() {
-        return inventory.CanDrop();
-    }
+//     public bool CanDo() {
+//         return inventory.CanDrop();
+//     }
 
-    public void Act() {
-        if (CanDo()) {
-            inventory.DropSelectedItem();
-        }
-    }
-}
+//     public void Act() {
+//         if (CanDo()) {
+//             inventory.DropSelectedItem();
+//         }
+//     }
+// }
