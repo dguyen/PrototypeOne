@@ -5,13 +5,16 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour {
     public const int numItemSlots = 3;
-    public Image[] inventoryImages = new Image[numItemSlots];
+    public InventoryUI inventoryUI;
     public GameObject itemSpawn;
 
     private GameObject[] storedObjects = new GameObject[numItemSlots];
     private int selectedItem = 0;
 
     void Start() {
+        if (inventoryUI == null) {
+            inventoryUI = GameObject.Find("Inventory").GetComponent<InventoryUI>();
+        }
         SelectItem(selectedItem);
     }
 
@@ -36,11 +39,8 @@ public class Inventory : MonoBehaviour {
             storedObjects[selectedItem].SetActive(false);
         }
 
-        if (inventoryImages[selectedItem]) {
-            inventoryImages[selectedItem].color = new Color32(160, 255, 255, 255);
-            selectedItem = newSelectedItem;
-            inventoryImages[selectedItem].color = new Color32(212, 100, 50, 255);
-        }
+        selectedItem = newSelectedItem;
+        inventoryUI.Select(selectedItem);
 
         if (storedObjects[selectedItem] != null) {
             storedObjects[selectedItem].SetActive(true);
@@ -57,8 +57,7 @@ public class Inventory : MonoBehaviour {
             if (storedObjects[i] == null) {
                 // Store the item and update inventory UI
                 storedObjects[i] = itemGameObject;
-                inventoryImages[i].sprite = entity.GetSprite();
-                inventoryImages[i].enabled = true;
+                inventoryUI.SetImage(i, entity.GetSprite());
 
                 // Set the location and rotation ?
                 itemGameObject.transform.parent = itemSpawn.transform;
@@ -85,8 +84,7 @@ public class Inventory : MonoBehaviour {
         for (int i = 0; i < storedObjects.Length; i++) {
             if (storedObjects[i] == objectToRemove) {
                 storedObjects[i] = null;
-                inventoryImages[i].sprite = null;
-                inventoryImages[i].enabled = false;
+                inventoryUI.RemoveImage(i);
                 return true;
             }
         }
