@@ -29,11 +29,21 @@ public class WaveManager : MonoBehaviour {
     private WaitForSeconds initialStartDelay;
     private WaitForSeconds waveEndWait;
     private PlayerActionManager playerActionManager;
+    private bool waveInitiated = false;
 
     void Start() {
         initialStartDelay = new WaitForSeconds(initialDelay);
         waveEndWait = new WaitForSeconds(waveDelay);
-        StartCoroutine(GameLoop());
+    }
+
+    public void StartWaves() {
+        if (!waveInitiated) {
+            if (playerHealth == null) {
+                playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+            }
+            StartCoroutine(GameLoop());
+            waveInitiated = true;
+        }
     }
 
     IEnumerator GameLoop() {
