@@ -11,6 +11,9 @@ public class PlayerMoney : MonoBehaviour {
 
     public void Start() {
         playerMoney = initialPlayerMoney;
+        if (moneyText == null) {
+            moneyText = GameObject.Find("MoneyText").GetComponent<Text>();
+        }
         UpdateUI();
     }
 

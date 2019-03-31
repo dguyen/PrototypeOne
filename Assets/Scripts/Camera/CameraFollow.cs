@@ -8,13 +8,20 @@ public class CameraFollow : MonoBehaviour
     public float smoothing = 5f;
 
     Vector3 offset;
+    bool targetSet;
 
-    void Start() {
+    public void SetupCamera() {
+        if (target == null) {
+            target = GameObject.FindGameObjectWithTag("Player").transform;
+        }
         offset = transform.position - target.position;
+        targetSet = true;
     }
 
     void FixedUpdate() {
-        Vector3 targetCamPos = target.position + offset;
-        transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
+        if (targetSet) {
+            Vector3 targetCamPos = target.position + offset;
+            transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
+        }
     }
 }
