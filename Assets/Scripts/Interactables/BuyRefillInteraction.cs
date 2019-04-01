@@ -25,16 +25,13 @@ public class BuyRefillInteraction : MonoBehaviour, IInteractable {
             if (FoundPlayerItem.HasCapability(Capability.REFILLABLE)) {
                 RangedWeapon tmpCast = (RangedWeapon)FoundPlayerItem;
                 if (tmpCast.ammoCapacity == tmpCast.GetAmmoCount()) {
-                    Debug.Log("Ammo already full");
                     // Todo: Inform player "Ammo is already full"
                 } else if (PlayerMoney.GetPlayerMoney() >= RefillPrice) {
-                    Debug.Log("Refilled AMMO");
                     // Todo: Indicate to player that ammo has been refilled
                     tmpCast.RefillAmmo();
                     PlayerMoney.DecreaseMoney(RefillPrice);
                 } else {
                     // Todo: Inform player "Funds lacking"
-                    Debug.Log("No Money to refill");
                 }
             }
         } else if(PlayerMoney.GetPlayerMoney() < BuyPrice) {
