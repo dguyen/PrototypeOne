@@ -52,6 +52,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable
         animator.SetTrigger ("Dead");
         GetComponent <UnityEngine.AI.NavMeshAgent> ().enabled = false;
         GetComponent <Rigidbody> ().isKinematic = true;
+        gameObject.layer = 0;
 
         foreach (var entity in gameObject.GetComponentsInChildren<Entity>())
         {

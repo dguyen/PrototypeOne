@@ -15,13 +15,18 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
     bool isDead;
     bool damaged;
 
-    void Start() {
-        healthSlider.maxValue = startingHealth;
-        healthSlider.value = startingHealth;
-    }
-
     void Awake () {
         playerActionManager = GetComponent<PlayerActionManager> ();
+
+        if (healthSlider == null) {
+            healthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
+        }
+        if (damageImage == null) {
+            damageImage = GameObject.Find("DamageIndicator").GetComponent<Image>();
+        }
+
+        healthSlider.maxValue = startingHealth;
+        healthSlider.value = startingHealth;
         currentHealth = startingHealth;
     }
 

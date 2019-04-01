@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 774f753f453a3f74e87fe22c4ec30e0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityName: Arrow
   entitySprite: {fileID: 0}
   perArrowDamage: 10
   moneyPerHit: 20

@@ -1305,6 +1305,7 @@ GameObject:
   m_Component:
   - component: {fileID: 739389087}
   - component: {fileID: 739389089}
+  - component: {fileID: 739389088}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -1334,6 +1335,28 @@ RectTransform:
   m_AnchoredPosition: {x: -50, y: 0}
   m_SizeDelta: {x: 100, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &739389088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739389086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d26975800d0f0a843b3ce851f009729d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InventoryImages:
+  - {fileID: 1563336741}
+  - {fileID: 459020416}
+  - {fileID: 1821599208}
+  SelectColor:
+    serializedVersion: 2
+    rgba: 4281492692
+  DeselectedColor:
+    serializedVersion: 2
+    rgba: 4294967200
 --- !u!114 &739389089
 MonoBehaviour:
   m_ObjectHideFlags: 0

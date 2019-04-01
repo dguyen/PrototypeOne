@@ -28,7 +28,7 @@ public class Arrow : Entity {
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
-            Bow bow = other.gameObject.GetComponentInChildren<Bow>();
+            Bow bow = other.gameObject.GetComponentInChildren<Bow>(true);
             if (bow) {
                 bow.IncreaseAmmo(1);
                 gameObject.SetActive(false);
