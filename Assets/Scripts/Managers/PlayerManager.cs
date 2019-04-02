@@ -9,9 +9,18 @@ public class PlayerManager {
 
     private PlayerActionManager m_PlayerActionManager;
     private GameObject m_CanvasGameObject;
+    private PlayerMovement m_PlayerMovement;
+    private PlayerInteract m_PlayerInteract;
+    private Inventory m_PlayerInventory;
 
     public void Setup() {
         m_PlayerActionManager = m_PlayerGameObject.GetComponent<PlayerActionManager>();
+        m_PlayerMovement = m_PlayerGameObject.GetComponent<PlayerMovement>();
+        m_PlayerInteract = m_PlayerGameObject.GetComponent<PlayerInteract>();
+        m_PlayerInventory = m_PlayerGameObject.GetComponent<Inventory>();
+        m_PlayerMovement.playerNumber = m_PlayerNumber;
+        m_PlayerInteract.playerNumber = m_PlayerNumber;
+        m_PlayerInventory.playerNumber = m_PlayerNumber;
     }
 
     public void EnableControl() {

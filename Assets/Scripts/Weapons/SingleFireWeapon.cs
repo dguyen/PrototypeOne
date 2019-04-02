@@ -16,10 +16,8 @@ public class SingleFireWeapon : RangedWeapon {
     private int shootableMask;
     private Light gunLight;
     private LineRenderer gunLine;
-    private PlayerMoney playerMoney;
 
     void Awake() {
-        playerMoney = FindObjectOfType<PlayerMoney>();    
         shootableMask = LayerMask.GetMask("Shootable");
         gunLine = GetComponent<LineRenderer>();
         gunLight = GetComponent<Light>();
@@ -37,7 +35,7 @@ public class SingleFireWeapon : RangedWeapon {
     }
 
     public override void WeaponActive() {
-        if (Input.GetButtonDown("Fire1") && timer >= fireDelay) {
+        if (Input.GetButtonDown("Fire1_P" + playerNumber) && timer >= fireDelay) {
             timer = 0f;
             Fire();    
         }

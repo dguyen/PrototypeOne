@@ -7,11 +7,14 @@ public class Inventory : MonoBehaviour {
     public const int numItemSlots = 3;
     public InventoryUI inventoryUI;
     public GameObject itemSpawn;
+    public int playerNumber = 1;
 
     private GameObject[] storedObjects = new GameObject[numItemSlots];
     private int selectedItem = 0;
+    private PlayerMoney playerMoney;
 
     void Start() {
+        playerMoney = GetComponent<PlayerMoney>();
         if (inventoryUI == null) {
             inventoryUI = GameObject.Find("Inventory").GetComponent<InventoryUI>();
         }
@@ -52,6 +55,8 @@ public class Inventory : MonoBehaviour {
         if (entity == null) {
             return false;
         }
+        ((Entity)entity).playerNumber = playerNumber;
+        ((Weapon)entity).playerMoney = playerMoney;
 
         for (int i = 0; i < storedObjects.Length; i++) {
             if (storedObjects[i] == null) {

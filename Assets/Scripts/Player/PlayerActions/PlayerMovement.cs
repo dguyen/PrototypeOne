@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour, IAction {
+    public int playerNumber = 1;
+
     [Tooltip("How fast the player moves")]
     public float speed = 6f;
  
@@ -39,8 +41,8 @@ public class PlayerMovement : MonoBehaviour, IAction {
     }
 
     void FixedUpdate() {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        float h = Input.GetAxisRaw("Horizontal_P" + playerNumber);
+        float v = Input.GetAxisRaw("Vertical_P" + playerNumber);
 
         Turning();
         Move(h, v);
@@ -72,10 +74,10 @@ public class PlayerMovement : MonoBehaviour, IAction {
 
     void Sprinting() {
         RecoverStamina();
-        if (Input.GetKey(KeyCode.LeftShift)) {
+        if (Input.GetButtonDown("Sprint_P" + playerNumber)) {
             DepleteStamina();
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift)) {
+        if (Input.GetButtonUp("Sprint_P" + playerNumber)) {
             staminaDepleted = false;
         }
     }

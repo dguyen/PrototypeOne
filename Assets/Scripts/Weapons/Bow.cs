@@ -39,11 +39,11 @@ public class Bow : RangedWeapon {
     }
 
     public override void WeaponActive() {
-        if (Input.GetButtonDown("Fire1")) {
+        if (Input.GetButtonDown("Fire1_P" + playerNumber)) {
             Fired = false;
             CurrentLaunchForce = MinLaunchForce;
 
-        } else if (Input.GetButton("Fire1") && !Fired && CurrentLaunchForce < MaxLaunchForce) {
+        } else if (Input.GetButton("Fire1_P" + playerNumber) && !Fired && CurrentLaunchForce < MaxLaunchForce) {
             float newLaunchForce = CurrentLaunchForce + ChargeSpeed * Time.deltaTime;
             if (newLaunchForce >= MaxLaunchForce) {
                 newLaunchForce = MaxLaunchForce;
@@ -51,7 +51,7 @@ public class Bow : RangedWeapon {
             CurrentLaunchForce = newLaunchForce;
             ChargeSlider.value = CurrentLaunchForce;
 
-        } else if (Input.GetButtonUp("Fire1") && !Fired) {
+        } else if (Input.GetButtonUp("Fire1_P" + playerNumber) && !Fired) {
             Fire();
         }
     }

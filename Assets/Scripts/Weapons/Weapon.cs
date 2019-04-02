@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Weapon : Entity {
     public int pointsPerHit;
+    public PlayerMoney playerMoney;
 
     private Inventory inventory;
 

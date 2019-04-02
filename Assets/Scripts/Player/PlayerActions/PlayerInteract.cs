@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour, IAction {
     public float interactRadius = 2f;
-    public KeyCode interactKey = KeyCode.F;
+    public int playerNumber = 1;
 
     private IInteractable tmpInteractable;
 
     void Update() {
-        if (Input.GetKeyUp(interactKey)) {
+        if (Input.GetButtonUp("Interact_P" + playerNumber)) {
             Act();
         }
     }
