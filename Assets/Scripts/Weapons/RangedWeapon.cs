@@ -32,7 +32,7 @@ public class RangedWeapon : Weapon {
 
     public void UpdateAmmoCount() {
         if (ammoCountText && gameObject.activeSelf) {
-            ammoCountText.text = ammoCount.ToString();
+            ammoCountText.text = ammoCount.ToString() + "/" + ammoCapacity;
         }
     }
 

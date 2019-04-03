@@ -43,7 +43,7 @@ public class Inventory : MonoBehaviour {
         }
 
         selectedItem = newSelectedItem;
-        inventoryUI.Select(selectedItem);
+        UpdateInventoryUI();
 
         if (storedObjects[selectedItem] != null) {
             storedObjects[selectedItem].SetActive(true);
@@ -60,20 +60,11 @@ public class Inventory : MonoBehaviour {
 
         for (int i = 0; i < storedObjects.Length; i++) {
             if (storedObjects[i] == null) {
-                // Store the item and update inventory UI
                 storedObjects[i] = itemGameObject;
-                inventoryUI.SetImage(i, entity.GetSprite());
-
-                // Set the location and rotation ?
                 itemGameObject.transform.parent = itemSpawn.transform;
                 itemGameObject.transform.localPosition = new Vector3();
                 itemGameObject.transform.rotation = new Quaternion();
-
-                itemGameObject.SetActive(false);
-                if (i == selectedItem) {
-                    SelectItem(i);
-                }
-
+                SelectItem(i);
                 return true;
             }
         }
@@ -89,7 +80,6 @@ public class Inventory : MonoBehaviour {
         for (int i = 0; i < storedObjects.Length; i++) {
             if (storedObjects[i] == objectToRemove) {
                 storedObjects[i] = null;
-                inventoryUI.RemoveImage(i);
                 return true;
             }
         }
@@ -120,5 +110,16 @@ public class Inventory : MonoBehaviour {
             return tmpObject.GetComponent<IEntity>();
         }
         return null;
+    }
+
+    private void UpdateInventoryUI() {
+        if (storedObjects[selectedItem] == null) {
+            inventoryUI.RemoveImage();
+        } else {
+            Sprite sprite = storedObjects[selectedItem].GetComponent<IEntity>().GetSprite();
+            if (sprite != null) {
+                inventoryUI.SetImage(sprite);
+            }
+        }
     }
 }
