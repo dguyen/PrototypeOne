@@ -5,15 +5,14 @@ using UnityEngine.UI;
 
 public class RangedWeapon : Weapon {
     public int ammoCapacity = 20;
-    public Text ammoCountText;
 
     private int ammoCount;
 
     public override void Start() {
         base.Start();
         base.AddCapability(Capability.REFILLABLE);
-        ammoCountText = GameObject.Find("AmmoCountText").GetComponent<Text>();
         ammoCount = ammoCapacity;
+        UpdateAmmoCount();
     }
 
     public virtual void OnEnable() {

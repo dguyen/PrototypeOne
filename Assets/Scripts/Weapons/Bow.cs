@@ -18,7 +18,7 @@ public class Bow : RangedWeapon {
 
     public override void Start() {
         base.Start();
-        ChargeSlider = GameObject.Find("ChargeSlider").GetComponent<Slider>();
+        ChargeSlider = GameObject.Find("ChargeSlider").GetComponent<Slider>(); // Todo: Remove
         ChargeSpeed = (MaxLaunchForce - MinLaunchForce) / MaxChargeTime;
         ChargeSlider.maxValue = MaxLaunchForce;
         ChargeSlider.minValue = MinLaunchForce;
@@ -62,6 +62,7 @@ public class Bow : RangedWeapon {
         Rigidbody arrowRigidbody = Instantiate(Arrow, ArrowSpawn.position, ArrowSpawn.rotation) as Rigidbody;
         Arrow newArrow = arrowRigidbody.gameObject.GetComponent<Arrow>();
         newArrow.moneyPerHit = pointsPerHit;
+        newArrow.playerMoney = playerMoney;
         float damageMultiplier = ((CurrentLaunchForce - MinLaunchForce) / 10) + 1;
         newArrow.perArrowDamage = Mathf.RoundToInt(newArrow.perArrowDamage * damageMultiplier);
         arrowRigidbody.velocity = ArrowSpawn.forward * CurrentLaunchForce;

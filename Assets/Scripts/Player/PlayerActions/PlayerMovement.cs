@@ -2,7 +2,8 @@
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour, IAction {
-    public int playerNumber = 1;
+    [HideInInspector] public int playerNumber = 1;
+    [HideInInspector] public PlayerDetails playerDetails;
 
     [Tooltip("How fast the player moves")]
     public float speed = 6f;
@@ -32,9 +33,10 @@ public class PlayerMovement : MonoBehaviour, IAction {
         floorMask = LayerMask.GetMask("Floor");
         playerRigidbody = GetComponent<Rigidbody>();
 
-        if (staminaSlider == null) {
-            staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
-        }
+        playerDetails = GetComponent<PlayerDetails>();
+        playerNumber = playerDetails.PlayerNumber;
+        staminaSlider = playerDetails.PlayerUI.StaminaSlider;
+
         staminaSlider.maxValue = staminaLength;
         currentStamina = staminaLength;
         staminaSlider.value = currentStamina;
@@ -99,7 +101,7 @@ public class PlayerMovement : MonoBehaviour, IAction {
     }
 
     bool isSprinting() {
-        return Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift);
+        return Input.GetButton("Sprint_P" + playerNumber);
     }
 
     public bool CanDo() {

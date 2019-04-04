@@ -58,7 +58,7 @@ public class SingleFireWeapon : RangedWeapon {
         shootRay.direction = gunPoint.forward;
 
         if (Physics.Raycast(shootRay, out shootHit, range, shootableMask)) {
-            EnemyHealth damagable = shootHit.collider.GetComponent<EnemyHealth>();
+            IDamagable damagable = shootHit.collider.GetComponent<IDamagable>();
             if (damagable != null) {
                 damagable.TakeDamage(damagePerShot);
                 playerMoney.IncreaseMoney(pointsPerHit);

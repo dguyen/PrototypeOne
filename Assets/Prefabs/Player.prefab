@@ -130,7 +130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6249639016232928316
 Transform:
   m_ObjectHideFlags: 0
@@ -201,6 +201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e049d3ecde45348448fb482ca43c5f00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNumber: 1
+  playerDetails: {fileID: 0}
   speed: 6
   staminaSlider: {fileID: 0}
   staminaSpeedMultiplier: 1.5
@@ -225,6 +227,7 @@ MonoBehaviour:
   damageImage: {fileID: 0}
   flashSpeed: 5
   flashColour: {r: 1, g: 0, b: 0, a: 0.1}
+  playerDetails: {fileID: 0}
 --- !u!114 &69096937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,11 +240,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6f25feacd1596048a7088e94835a94c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryImages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  inventoryUI: {fileID: 0}
   itemSpawn: {fileID: 1482928444}
+  playerNumber: 1
+  playerDetails: {fileID: 0}
 --- !u!114 &1988680570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,6 +258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialPlayerMoney: 1000
   moneyText: {fileID: 0}
+  playerDetails: {fileID: 0}
 --- !u!114 &869725222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,7 +272,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactRadius: 1
-  interactKey: 102
+  playerNumber: 1
+  playerDetails: {fileID: 0}
 --- !u!1 &8290756651783905194
 GameObject:
   m_ObjectHideFlags: 0

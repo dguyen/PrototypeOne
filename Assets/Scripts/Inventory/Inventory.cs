@@ -7,7 +7,8 @@ public class Inventory : MonoBehaviour {
     public const int numItemSlots = 3;
     public InventoryUI inventoryUI;
     public GameObject itemSpawn;
-    public int playerNumber = 1;
+    [HideInInspector] public int playerNumber = 1;
+    [HideInInspector] public PlayerDetails playerDetails;
 
     private GameObject[] storedObjects = new GameObject[numItemSlots];
     private int selectedItem = 0;
@@ -15,9 +16,9 @@ public class Inventory : MonoBehaviour {
 
     void Start() {
         playerMoney = GetComponent<PlayerMoney>();
-        if (inventoryUI == null) {
-            inventoryUI = GameObject.Find("Inventory").GetComponent<InventoryUI>();
-        }
+        playerDetails = GetComponent<PlayerDetails>();
+        playerNumber = playerDetails.PlayerNumber;
+        inventoryUI = playerDetails.PlayerUI.InventoryUI;
         SelectItem(selectedItem);
     }
 
@@ -34,6 +35,17 @@ public class Inventory : MonoBehaviour {
             } else {
                 SelectItem(selectedItem - 1);
             }
+        }
+        if (Input.GetButtonDown("Switch_Weapon_P" + playerNumber)) {
+            SwitchWeapon();
+        }
+    }
+
+    public void SwitchWeapon() {
+        if (selectedItem == numItemSlots - 1) {
+            SelectItem(0);
+        } else {
+            SelectItem(selectedItem + 1);
         }
     }
 
@@ -57,6 +69,8 @@ public class Inventory : MonoBehaviour {
         }
         ((Entity)entity).playerNumber = playerNumber;
         ((Weapon)entity).playerMoney = playerMoney;
+        ((Weapon)entity).ammoCountText = playerDetails.PlayerUI.AmmoCountText;
+        ((Weapon)entity).inventory = this;
 
         for (int i = 0; i < storedObjects.Length; i++) {
             if (storedObjects[i] == null) {

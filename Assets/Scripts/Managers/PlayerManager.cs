@@ -5,9 +5,11 @@ using UnityEngine;
 public class PlayerManager {
     public Transform m_SpawnPoint;
     [HideInInspector] public int m_PlayerNumber;
+    [HideInInspector] public PlayerUI m_PlayerUI;
     [HideInInspector] public GameObject m_PlayerGameObject;
 
     private PlayerActionManager m_PlayerActionManager;
+    private PlayerDetails m_PlayerDetails;
     private GameObject m_CanvasGameObject;
     private PlayerMovement m_PlayerMovement;
     private PlayerInteract m_PlayerInteract;
@@ -15,12 +17,10 @@ public class PlayerManager {
 
     public void Setup() {
         m_PlayerActionManager = m_PlayerGameObject.GetComponent<PlayerActionManager>();
-        m_PlayerMovement = m_PlayerGameObject.GetComponent<PlayerMovement>();
-        m_PlayerInteract = m_PlayerGameObject.GetComponent<PlayerInteract>();
-        m_PlayerInventory = m_PlayerGameObject.GetComponent<Inventory>();
-        m_PlayerMovement.playerNumber = m_PlayerNumber;
-        m_PlayerInteract.playerNumber = m_PlayerNumber;
-        m_PlayerInventory.playerNumber = m_PlayerNumber;
+        m_PlayerDetails = m_PlayerGameObject.AddComponent<PlayerDetails>();
+        m_PlayerDetails.PlayerNumber = m_PlayerNumber;
+        m_PlayerDetails.PlayerUI = m_PlayerUI;
+        m_PlayerGameObject.SetActive(true);
     }
 
     public void EnableControl() {

@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour, IAction {
     public float interactRadius = 2f;
-    public int playerNumber = 1;
+    [HideInInspector] public int playerNumber = 1;
+    [HideInInspector] public PlayerDetails playerDetails;
 
     private IInteractable tmpInteractable;
+
+    void Awake() {
+        playerDetails = GetComponent<PlayerDetails>();
+        playerNumber = playerDetails.PlayerNumber;
+    }
 
     void Update() {
         if (Input.GetButtonUp("Interact_P" + playerNumber)) {
