@@ -10,7 +10,7 @@ public class SelectOnInput : MonoBehaviour {
     private bool buttonSelected;
 
     void Update() {
-        if (Input.GetAxisRaw("Vertical") != 0 && !buttonSelected) {
+        if (Input.GetAxisRaw("Vertical_P1") != 0 && !buttonSelected) {
             eventSystem.SetSelectedGameObject(selectedObject);
             buttonSelected = true;
         }
