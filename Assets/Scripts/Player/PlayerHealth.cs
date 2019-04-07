@@ -20,9 +20,11 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
         playerActionManager = GetComponent<PlayerActionManager> ();
         playerDetails = GetComponent<PlayerDetails>();
 
-        healthSlider = playerDetails.PlayerUI.HealthSlider;
-        healthSlider.maxValue = startingHealth;
-        healthSlider.value = startingHealth;
+        if (playerDetails != null) {
+            healthSlider = playerDetails.PlayerUI.HealthSlider;
+            healthSlider.maxValue = startingHealth;
+            healthSlider.value = startingHealth;
+        }
         currentHealth = startingHealth;
     }
 

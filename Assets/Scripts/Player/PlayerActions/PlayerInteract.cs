@@ -11,7 +11,9 @@ public class PlayerInteract : MonoBehaviour, IAction {
 
     void Awake() {
         playerDetails = GetComponent<PlayerDetails>();
-        playerNumber = playerDetails.PlayerNumber;
+        if (playerDetails != null) {
+            playerNumber = playerDetails.PlayerNumber;
+        }
     }
 
     void Update() {

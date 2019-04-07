@@ -34,12 +34,15 @@ public class PlayerMovement : MonoBehaviour, IAction {
         playerRigidbody = GetComponent<Rigidbody>();
 
         playerDetails = GetComponent<PlayerDetails>();
-        playerNumber = playerDetails.PlayerNumber;
-        staminaSlider = playerDetails.PlayerUI.StaminaSlider;
 
-        staminaSlider.maxValue = staminaLength;
-        currentStamina = staminaLength;
-        staminaSlider.value = currentStamina;
+        if (playerDetails != null) {
+            playerNumber = playerDetails.PlayerNumber;
+            staminaSlider = playerDetails.PlayerUI.StaminaSlider;
+
+            staminaSlider.maxValue = staminaLength;
+            currentStamina = staminaLength;
+            staminaSlider.value = currentStamina;
+        }
     }
 
     void FixedUpdate() {
