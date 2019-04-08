@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour, IAction {
-    [HideInInspector] public int playerNumber = 1;
+    [HideInInspector] public int playerControlScheme = 1;
     [HideInInspector] public PlayerDetails playerDetails;
 
     [Tooltip("How fast the player moves")]
@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour, IAction {
         playerDetails = GetComponent<PlayerDetails>();
 
         if (playerDetails != null) {
-            playerNumber = playerDetails.PlayerNumber;
+            playerControlScheme = playerDetails.PlayerControlScheme;
             staminaSlider = playerDetails.PlayerUI.StaminaSlider;
 
             staminaSlider.maxValue = staminaLength;
@@ -46,8 +46,8 @@ public class PlayerMovement : MonoBehaviour, IAction {
     }
 
     void FixedUpdate() {
-        float h = Input.GetAxisRaw("Horizontal_P" + playerNumber);
-        float v = Input.GetAxisRaw("Vertical_P" + playerNumber);
+        float h = Input.GetAxisRaw("Horizontal_P" + playerControlScheme);
+        float v = Input.GetAxisRaw("Vertical_P" + playerControlScheme);
 
         Turning();
         Move(h, v);
@@ -79,10 +79,10 @@ public class PlayerMovement : MonoBehaviour, IAction {
 
     void Sprinting() {
         RecoverStamina();
-        if (Input.GetButtonDown("Sprint_P" + playerNumber)) {
+        if (Input.GetButtonDown("Sprint_P" + playerControlScheme)) {
             DepleteStamina();
         }
-        if (Input.GetButtonUp("Sprint_P" + playerNumber)) {
+        if (Input.GetButtonUp("Sprint_P" + playerControlScheme)) {
             staminaDepleted = false;
         }
     }
@@ -104,7 +104,7 @@ public class PlayerMovement : MonoBehaviour, IAction {
     }
 
     bool isSprinting() {
-        return Input.GetButton("Sprint_P" + playerNumber);
+        return Input.GetButton("Sprint_P" + playerControlScheme);
     }
 
     public bool CanDo() {

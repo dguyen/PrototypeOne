@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Entity: MonoBehaviour, IEntity {
     public string entityName;
-    public int playerNumber = 1;
+    public int playerControlScheme = 1;
     // public string shortDescription;
     // public string longDescription;
     public Sprite entitySprite;

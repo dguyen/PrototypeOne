@@ -35,7 +35,7 @@ public class SingleFireWeapon : RangedWeapon {
     }
 
     public override void WeaponActive() {
-        if (Input.GetButtonDown("Fire1_P" + playerNumber) && timer >= fireDelay) {
+        if (Input.GetButtonDown("Fire1_P" + playerControlScheme) && timer >= fireDelay) {
             timer = 0f;
             Fire();    
         }

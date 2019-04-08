@@ -5,4 +5,5 @@ using UnityEngine;
 public class PlayerDetails : MonoBehaviour {
     public PlayerUI PlayerUI;
     public int PlayerNumber;
+    public int PlayerControlScheme;
 }

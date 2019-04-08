@@ -7,7 +7,7 @@ public class Inventory : MonoBehaviour {
     public const int numItemSlots = 3;
     public InventoryUI inventoryUI;
     public GameObject itemSpawn;
-    [HideInInspector] public int playerNumber = 1;
+    [HideInInspector] public int playerControlScheme = 1;
     [HideInInspector] public PlayerDetails playerDetails;
 
     private GameObject[] storedObjects = new GameObject[numItemSlots];
@@ -17,35 +17,24 @@ public class Inventory : MonoBehaviour {
     void Start() {
         playerMoney = GetComponent<PlayerMoney>();
         playerDetails = GetComponent<PlayerDetails>();
-        playerNumber = playerDetails.PlayerNumber;
+        playerControlScheme = playerDetails.PlayerControlScheme;
         inventoryUI = playerDetails.PlayerUI.InventoryUI;
         SelectItem(selectedItem);
     }
 
     void Update() {
-        if (Input.GetAxis("Mouse ScrollWheel") == -0.1f) {
+        if (Input.GetButtonDown("Previous_Weapon_P" + playerControlScheme)) {
             if (selectedItem == numItemSlots - 1) {
                 SelectItem(0);
             } else {
                 SelectItem(selectedItem + 1);
             }
-        } else if (Input.GetAxis("Mouse ScrollWheel") == 0.1f) {
+        } else if (Input.GetButtonDown("Next_Weapon_P" + playerControlScheme)) {
             if (selectedItem == 0) {
                 SelectItem(numItemSlots - 1);
             } else {
                 SelectItem(selectedItem - 1);
             }
-        }
-        if (Input.GetButtonDown("Switch_Weapon_P" + playerNumber)) {
-            SwitchWeapon();
-        }
-    }
-
-    public void SwitchWeapon() {
-        if (selectedItem == numItemSlots - 1) {
-            SelectItem(0);
-        } else {
-            SelectItem(selectedItem + 1);
         }
     }
 
@@ -67,7 +56,7 @@ public class Inventory : MonoBehaviour {
         if (entity == null) {
             return false;
         }
-        ((Entity)entity).playerNumber = playerNumber;
+        ((Entity)entity).playerControlScheme = playerControlScheme;
         ((Weapon)entity).playerMoney = playerMoney;
         ((Weapon)entity).ammoCountText = playerDetails.PlayerUI.AmmoCountText;
         ((Weapon)entity).inventory = this;

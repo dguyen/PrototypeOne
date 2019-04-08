@@ -3,8 +3,8 @@ using UnityEngine;
 
 [Serializable]
 public class PlayerManager {
-    public Transform m_SpawnPoint;
     [HideInInspector] public int m_PlayerNumber;
+    [HideInInspector] public int m_ControlScheme;
     [HideInInspector] public PlayerUI m_PlayerUI;
     [HideInInspector] public GameObject m_PlayerGameObject;
 
@@ -20,6 +20,7 @@ public class PlayerManager {
         m_PlayerDetails = m_PlayerGameObject.AddComponent<PlayerDetails>();
         m_PlayerDetails.PlayerNumber = m_PlayerNumber;
         m_PlayerDetails.PlayerUI = m_PlayerUI;
+        m_PlayerDetails.PlayerControlScheme = m_ControlScheme;
         m_PlayerGameObject.SetActive(true);
     }
 
@@ -29,13 +30,5 @@ public class PlayerManager {
 
     public void DisableControl() {
         m_PlayerActionManager.DisableAll();
-    }
-
-    public void Reset() {
-        m_PlayerGameObject.transform.position = m_SpawnPoint.position;
-        m_PlayerGameObject.transform.rotation = m_SpawnPoint.rotation;
-
-        m_PlayerGameObject.SetActive(false);
-        m_PlayerGameObject.SetActive(true);
     }
 }

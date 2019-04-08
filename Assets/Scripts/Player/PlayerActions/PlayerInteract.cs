@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour, IAction {
     public float interactRadius = 2f;
-    [HideInInspector] public int playerNumber = 1;
+    [HideInInspector] public int playerControlScheme = 1;
     [HideInInspector] public PlayerDetails playerDetails;
 
     private IInteractable tmpInteractable;
@@ -12,12 +12,12 @@ public class PlayerInteract : MonoBehaviour, IAction {
     void Awake() {
         playerDetails = GetComponent<PlayerDetails>();
         if (playerDetails != null) {
-            playerNumber = playerDetails.PlayerNumber;
+            playerControlScheme = playerDetails.PlayerControlScheme;
         }
     }
 
     void Update() {
-        if (Input.GetButtonUp("Interact_P" + playerNumber)) {
+        if (Input.GetButtonUp("Interact_P" + playerControlScheme)) {
             Act();
         }
     }
