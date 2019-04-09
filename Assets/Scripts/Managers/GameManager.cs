@@ -35,9 +35,10 @@ public class GameManager : MonoBehaviour {
         // No waves for test level
 
         // Todo: Fix wave manager to obtain health from all players
-        // if (m_WaveManager != null) {
-        //     m_WaveManager.StartWaves();
-        // }
+        if (m_WaveManager != null) {
+            m_WaveManager.players = m_Players;
+            m_WaveManager.StartWaves();
+        }
     }
 
     /**

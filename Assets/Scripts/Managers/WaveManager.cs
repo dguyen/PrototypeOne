@@ -18,9 +18,9 @@ public class WaveManager : MonoBehaviour {
 
     [Tooltip("Text to indicate the current wave")]   
     public Text gameOverText;
-    
-    [Tooltip("Player health")]   
-    public PlayerHealth playerHealth;
+
+    [HideInInspector]
+    public PlayerManager[] players;
 
     [Tooltip("Player health")]   
     public SpawnManager spawnManager;
@@ -30,6 +30,7 @@ public class WaveManager : MonoBehaviour {
     private WaitForSeconds waveEndWait;
     private PlayerActionManager playerActionManager;
     private bool waveInitiated = false;
+    private PlayerHealth[] playerHealths;
 
     void Start() {
         initialStartDelay = new WaitForSeconds(initialDelay);
@@ -38,9 +39,11 @@ public class WaveManager : MonoBehaviour {
 
     public void StartWaves() {
         if (!waveInitiated) {
-            if (playerHealth == null) {
-                playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+            playerHealths = new PlayerHealth[players.Length];
+            for (int i = 0; i < playerHealths.Length; i++) {
+                playerHealths[i] = players[i].m_PlayerGameObject.GetComponent<PlayerHealth>();
             }
+
             StartCoroutine(GameLoop());
             waveInitiated = true;
         }
@@ -51,7 +54,7 @@ public class WaveManager : MonoBehaviour {
         yield return StartCoroutine(WavePlaying());
         yield return StartCoroutine(WaveEnding());
 
-        if (playerHealth.currentHealth <= 0) {
+        if (PlayersDead()) {
             GameOver();
         } else {
             StartCoroutine(GameLoop());
@@ -67,13 +70,13 @@ public class WaveManager : MonoBehaviour {
     IEnumerator WavePlaying() {
         spawnManager.SpawnNext(currentWave);
 
-        while (playerHealth.currentHealth > 0 && spawnManager.EnemiesLeft() > 0) {
+        while (!PlayersDead() && spawnManager.EnemiesLeft() > 0) {
             yield return null;
         }
     }
 
     IEnumerator WaveEnding() {
-        if (playerHealth.currentHealth <= 0) {
+        if (PlayersDead()) {
             yield return new WaitForSeconds(gameOverDelay);
         } else {
             yield return waveEndWait;
@@ -88,5 +91,17 @@ public class WaveManager : MonoBehaviour {
     string GameOverMessage() {
         string message = "GAME OVER\n";
         return message + "<color=#" + ColorUtility.ToHtmlStringRGB(new Color32(225, 123, 112, 225)) + "><size=20>Wave: " + currentWave + "</size></color>";
+    }
+
+    /**
+     * Returns true if all players are dead, false otherwise
+     */
+    bool PlayersDead() {
+        foreach (var pHealth in playerHealths) {
+            if (pHealth.currentHealth > 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }
