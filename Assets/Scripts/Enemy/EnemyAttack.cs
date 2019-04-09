@@ -2,61 +2,78 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
-{
-    public float attackDelay = 0.5f;
-    public int attackDamage = 1;
+public class EnemyAttack : MonoBehaviour {
+    public float AttackDelay = 0.5f;
+    public int AttackDamage = 30;
 
-    GameObject player;
-    PlayerHealth playerHealth;
-    EnemyHealth enemyHealth;
-    bool inRange;
-    float timer;
-    // Start is called before the first frame update
-    void Awake()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerHealth = player.GetComponent<PlayerHealth>();
-        enemyHealth = GetComponent<EnemyHealth>();
+    private GameObject[] Players;
+    private PlayerHealth[] PlayerHealths;
+    private EnemyHealth EnemyHealth;
+    private bool InRange;
+    private float Timer;
+
+    void Awake() {
+        Players = GameObject.FindGameObjectsWithTag("Player");
+        PlayerHealths = new PlayerHealth[Players.Length];
+
+        for (int i = 0; i < Players.Length; i++) {
+            PlayerHealths[i] = Players[i].GetComponent<PlayerHealth>();
+        }
+        EnemyHealth = GetComponent<EnemyHealth>();
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject == player)
-        {
-            inRange = true;
+    void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "Player") {
+            InRange = true;
         }
     }
 
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject == player)
-        {
-            inRange = false;
+    void OnTriggerExit(Collider other) {
+        if (other.gameObject.tag == "Player") {
+            InRange = false;
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        timer += Time.deltaTime;
-        if (timer >= attackDelay && inRange && enemyHealth.currentHealth > 0)
-        {
+    void Update() {
+        Timer += Time.deltaTime;
+        if (Timer >= AttackDelay && InRange && EnemyHealth.currentHealth > 0) {
             Attack();
             //Todo Attack animation
         }
     }
 
-    void Attack()
-    {
-        timer = 0f;
-        if(playerHealth.currentHealth > 0)
-        {
-            IDamagable hit = (IDamagable)player.gameObject.GetComponent(typeof(IDamagable));
-            if (hit != null)
-            {
-                hit.TakeDamage(attackDamage);
+    void Attack() {
+        Timer = 0f;
+        GameObject Player = GetClosestPlayer();
+        if(Player != null) {
+            IDamagable Hit = (IDamagable)Player.gameObject.GetComponent(typeof(IDamagable));
+            if (Hit != null) {
+                Hit.TakeDamage(AttackDamage);
             }
         }
+    }
+
+    /**
+     * Returns the closest alive player GameObject
+     */
+    GameObject GetClosestPlayer() {
+        GameObject ClosestPlayer = null;
+        float ClosestDistanceSqr = Mathf.Infinity;
+        Vector3 CurrentPosition = transform.position;
+
+        for (int i = 0; i < Players.Length; i++) {
+            if (PlayerHealths[i].currentHealth <= 0) {
+                continue;
+            }
+
+            Transform TmpTransform = Players[i].transform;
+            Vector3 DirectionToTarget = TmpTransform.position - CurrentPosition;
+            float DSqrToTarget = DirectionToTarget.sqrMagnitude;
+            if(DSqrToTarget < ClosestDistanceSqr) {
+                ClosestDistanceSqr = DSqrToTarget;
+                ClosestPlayer = Players[i];
+            }
+        }
+        return ClosestPlayer;
     }
 }
