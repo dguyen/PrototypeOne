@@ -8,6 +8,7 @@ public class EnemyAttack : MonoBehaviour {
 
     private GameObject[] Players;
     private PlayerHealth[] PlayerHealths;
+    private bool[] InRangePlayers;
     private EnemyHealth EnemyHealth;
     private bool InRange;
     private float Timer;
@@ -15,6 +16,7 @@ public class EnemyAttack : MonoBehaviour {
     void Awake() {
         Players = GameObject.FindGameObjectsWithTag("Player");
         PlayerHealths = new PlayerHealth[Players.Length];
+        InRangePlayers = new bool[Players.Length];
 
         for (int i = 0; i < Players.Length; i++) {
             PlayerHealths[i] = Players[i].GetComponent<PlayerHealth>();
@@ -24,14 +26,35 @@ public class EnemyAttack : MonoBehaviour {
 
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Player") {
-            InRange = true;
+            for (int i = 0; i < Players.Length; i++) {
+                if (other.gameObject == Players[i] && PlayerHealths[i].currentHealth > 0) {
+                    InRangePlayers[i] = true;
+                    InRange = true;
+                }
+            }
+        }
+    }
+
+    void OnTriggerStay(Collider other) {
+        if (other.gameObject.tag == "Player") {
+            for (int i = 0; i < Players.Length; i++) {
+                if (other.gameObject == Players[i] && PlayerHealths[i].currentHealth > 0) {
+                    InRangePlayers[i] = true;
+                    InRange = true;
+                }
+            }
         }
     }
 
     void OnTriggerExit(Collider other) {
         if (other.gameObject.tag == "Player") {
-            InRange = false;
+            for (int i = 0; i < Players.Length; i++) {
+                if (other.gameObject == Players[i]) {
+                    InRangePlayers[i] = false;
+                }
+            }
         }
+        InRange = false;
     }
 
     void Update() {
@@ -42,13 +65,15 @@ public class EnemyAttack : MonoBehaviour {
         }
     }
 
+    /**
+     * Attacks the closest player
+     */
     void Attack() {
         Timer = 0f;
-        GameObject Player = GetClosestPlayer();
-        if(Player != null) {
-            IDamagable Hit = (IDamagable)Player.gameObject.GetComponent(typeof(IDamagable));
-            if (Hit != null) {
-                Hit.TakeDamage(AttackDamage);
+        int PlayerRef = GetClosestPlayer();
+        if(PlayerRef >= 0) {
+            if (PlayerHealths[PlayerRef] != null) {
+                PlayerHealths[PlayerRef].TakeDamage(AttackDamage);
             }
         }
     }
@@ -56,13 +81,13 @@ public class EnemyAttack : MonoBehaviour {
     /**
      * Returns the closest alive player GameObject
      */
-    GameObject GetClosestPlayer() {
-        GameObject ClosestPlayer = null;
+    int GetClosestPlayer() {
+        int ClosestPlayerRef = -1;
         float ClosestDistanceSqr = Mathf.Infinity;
         Vector3 CurrentPosition = transform.position;
 
         for (int i = 0; i < Players.Length; i++) {
-            if (PlayerHealths[i].currentHealth <= 0) {
+            if (PlayerHealths[i].currentHealth <= 0 || !InRangePlayers[i]) {
                 continue;
             }
 
@@ -71,9 +96,9 @@ public class EnemyAttack : MonoBehaviour {
             float DSqrToTarget = DirectionToTarget.sqrMagnitude;
             if(DSqrToTarget < ClosestDistanceSqr) {
                 ClosestDistanceSqr = DSqrToTarget;
-                ClosestPlayer = Players[i];
+                ClosestPlayerRef = i;
             }
         }
-        return ClosestPlayer;
+        return ClosestPlayerRef;
     }
 }
