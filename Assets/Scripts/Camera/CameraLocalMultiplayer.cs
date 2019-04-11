@@ -19,7 +19,7 @@ public class CameraLocalMultiplayer : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        if (IsSetup) {
+        if (IsSetup && GetNumberAlive() != 0) {
             Move();
             Zoom();
         }
@@ -43,11 +43,28 @@ public class CameraLocalMultiplayer : MonoBehaviour {
     }
 
     private void FindAveragePosition() {
+        int focusedPlayer = -1;
+
+        // Obtains the player closest to the center of all players
+        if (GetNumberAlive() > 2) {
+            GameObject CenterPlayer = GetClosestPlayer(GetAverageVector());
+            for (int i = 0; i < m_Players.Length; i++) {
+                if (m_Players[i] == CenterPlayer) {
+                    focusedPlayer = i;
+                    break;
+                }
+            }
+        }
+
         Vector3 averagePos = new Vector3();
         int numTargets = 0;
 
-        for (int i = 0; i < m_Players.Length; i++)   {
-            if (!PlayerValid(i)) {
+        for (int i = 0; i < m_Players.Length; i++) {
+            if (!IsPlayerAlive(i)) {
+                continue;
+            } else if (focusedPlayer < 0) {
+                focusedPlayer = i;
+            } else if (!IsPlayerVisible(i) && i != focusedPlayer) {
                 continue;
             }
 
@@ -55,11 +72,78 @@ public class CameraLocalMultiplayer : MonoBehaviour {
             numTargets++;
         }
 
-        if (numTargets > 0)
+        if (numTargets > 0) {
             averagePos /= numTargets;
+        }
 
         averagePos.y = transform.position.y;
         m_DesiredPosition = averagePos;
+    }
+
+    private Vector3 GetAverageVector() {
+        Vector3 averagePos = new Vector3();
+        int numTargets = 0;
+
+        for (int i = 0; i < m_Players.Length; i++) {
+            /**
+             * Can check if player is alive here and exclude them from calculations
+             * However may cause camera to shift away from a fight if a player dies mid fight
+
+                if (!IsPlayerAlive(i)) {
+                    continue;
+                }
+             */
+            averagePos += m_Players[i].transform.position;
+            numTargets++;
+        }
+
+        if (numTargets > 0)
+            averagePos /= numTargets;
+
+        return averagePos;
+    }
+
+    /**
+     * Returns the number of players alive
+     */
+    public int GetNumberAlive() {
+        int numPlayers = 0;
+        for (int i = 0; i < m_PlayerHealths.Length; i++) {
+            if (m_PlayerHealths[i].currentHealth > 0) {
+                numPlayers++;
+            }
+        }
+        return numPlayers;
+    }
+
+    /**
+     * Returns the closest alive player from a given transform
+     */
+    GameObject GetClosestPlayer(Vector3 CurrentPosition) {
+        GameObject ClosestPlayer = null;
+        float ClosestDistanceSqr = Mathf.Infinity;
+        GameObject tmp = null;
+
+        for (int i = 0; i < m_Players.Length; i++) {
+            if (!IsPlayerAlive(i)) {
+                continue;
+            }
+            tmp = m_Players[i];
+
+            Transform TmpTransform = m_Players[i].transform;
+            Vector3 DirectionToTarget = TmpTransform.position - CurrentPosition;
+            float DSqrToTarget = DirectionToTarget.sqrMagnitude;
+            if(DSqrToTarget < ClosestDistanceSqr) {
+                ClosestDistanceSqr = DSqrToTarget;
+                ClosestPlayer = m_Players[i];
+            }
+        }
+
+        if (GetNumberAlive() <= 2) {
+            return tmp;
+        }
+
+        return ClosestPlayer;
     }
 
     private void Zoom() {
@@ -73,7 +157,7 @@ public class CameraLocalMultiplayer : MonoBehaviour {
         float size = 0f;
 
         for (int i = 0; i < m_Players.Length; i++) {
-            if (!PlayerValid(i)) {
+            if (!IsPlayerAlive(i)) {
                 continue;
             }
 
@@ -91,17 +175,12 @@ public class CameraLocalMultiplayer : MonoBehaviour {
         return size;
     }
 
-    /**
-     * Checks if player is within camera view and if they are alive
-     */
-    private bool PlayerValid(int playerRef) {
-        if (m_PlayerHealths[playerRef].currentHealth <= 0) {
-            return false;
-        }
-        if (!PlayerVisible(m_Players[playerRef].transform.position)) {
-            return false;
-        }
-        return true;
+    private bool IsPlayerAlive(int playerRef) {
+        return m_PlayerHealths[playerRef].currentHealth > 0;
+    }
+
+    private bool IsPlayerVisible(int playerRef) {
+        return PlayerVisible(m_Players[playerRef].transform.position);
     }
 
     private bool PlayerVisible(Vector3 position) {
