@@ -285,8 +285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27a926ad3c830014d8063d817ef1f489, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDelay: 0.5
-  attackDamage: 1
+  AttackDelay: 0.5
+  AttackDamage: 15
 --- !u!1 &8247845191225857533
 GameObject:
   m_ObjectHideFlags: 0

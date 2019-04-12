@@ -16,10 +16,8 @@ public class SingleFireWeapon : RangedWeapon {
     private int shootableMask;
     private Light gunLight;
     private LineRenderer gunLine;
-    private PlayerMoney playerMoney;
 
     void Awake() {
-        playerMoney = FindObjectOfType<PlayerMoney>();    
         shootableMask = LayerMask.GetMask("Shootable");
         gunLine = GetComponent<LineRenderer>();
         gunLight = GetComponent<Light>();
@@ -37,7 +35,7 @@ public class SingleFireWeapon : RangedWeapon {
     }
 
     public override void WeaponActive() {
-        if (Input.GetButtonDown("Fire1") && timer >= fireDelay) {
+        if (Input.GetButtonDown("Fire1_P" + playerControlScheme) && timer >= fireDelay) {
             timer = 0f;
             Fire();    
         }
@@ -60,7 +58,7 @@ public class SingleFireWeapon : RangedWeapon {
         shootRay.direction = gunPoint.forward;
 
         if (Physics.Raycast(shootRay, out shootHit, range, shootableMask)) {
-            EnemyHealth damagable = shootHit.collider.GetComponent<EnemyHealth>();
+            IDamagable damagable = shootHit.collider.GetComponent<IDamagable>();
             if (damagable != null) {
                 damagable.TakeDamage(damagePerShot);
                 playerMoney.IncreaseMoney(pointsPerHit);

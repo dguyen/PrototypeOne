@@ -2,6 +2,9 @@
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour, IAction {
+    [HideInInspector] public int playerControlScheme = 1;
+    [HideInInspector] public PlayerDetails playerDetails;
+
     [Tooltip("How fast the player moves")]
     public float speed = 6f;
  
@@ -30,17 +33,21 @@ public class PlayerMovement : MonoBehaviour, IAction {
         floorMask = LayerMask.GetMask("Floor");
         playerRigidbody = GetComponent<Rigidbody>();
 
-        if (staminaSlider == null) {
-            staminaSlider = GameObject.Find("StaminaSlider").GetComponent<Slider>();
+        playerDetails = GetComponent<PlayerDetails>();
+
+        if (playerDetails != null) {
+            playerControlScheme = playerDetails.PlayerControlScheme;
+            staminaSlider = playerDetails.PlayerUI.StaminaSlider;
+
+            staminaSlider.maxValue = staminaLength;
+            currentStamina = staminaLength;
+            staminaSlider.value = currentStamina;
         }
-        staminaSlider.maxValue = staminaLength;
-        currentStamina = staminaLength;
-        staminaSlider.value = currentStamina;
     }
 
     void FixedUpdate() {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        float h = Input.GetAxisRaw("Horizontal_P" + playerControlScheme);
+        float v = Input.GetAxisRaw("Vertical_P" + playerControlScheme);
 
         Turning();
         Move(h, v);
@@ -59,23 +66,35 @@ public class PlayerMovement : MonoBehaviour, IAction {
     }
 
     void Turning() {
-        Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit floorhit;
+        /**
+         * If using mouse, use raycasting to turn
+         * Todo: Remove keyboard support in future for console versions
+         */
+        if (playerControlScheme == 1) {
+            Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit floorhit;
 
-        if(Physics.Raycast(camRay, out floorhit, camRayLength, floorMask)) {
-            Vector3 playerToMouse = floorhit.point - transform.position;
-            playerToMouse.y = 0f;
-            Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-            playerRigidbody.MoveRotation(newRotation);
+            if(Physics.Raycast(camRay, out floorhit, camRayLength, floorMask)) {
+                Vector3 playerToMouse = floorhit.point - transform.position;
+                playerToMouse.y = 0f;
+                Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
+                playerRigidbody.MoveRotation(newRotation);
+            }
+        } else {
+            Vector3 playerDirection = Vector3.right * Input.GetAxisRaw("Mouse_X_P" + playerControlScheme) + Vector3.forward * Input.GetAxisRaw("Mouse_Y_P" + playerControlScheme);
+
+            if (playerDirection.sqrMagnitude > 0.0f) {
+                transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
+            }
         }
     }
 
     void Sprinting() {
         RecoverStamina();
-        if (Input.GetKey(KeyCode.LeftShift)) {
+        if (Input.GetButtonDown("Sprint_P" + playerControlScheme)) {
             DepleteStamina();
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift)) {
+        if (Input.GetButtonUp("Sprint_P" + playerControlScheme)) {
             staminaDepleted = false;
         }
     }
@@ -97,7 +116,7 @@ public class PlayerMovement : MonoBehaviour, IAction {
     }
 
     bool isSprinting() {
-        return Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.LeftShift);
+        return Input.GetButton("Sprint_P" + playerControlScheme);
     }
 
     public bool CanDo() {

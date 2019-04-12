@@ -10,31 +10,27 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
     public Image damageImage;
     public float flashSpeed = 5f;
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
+    [HideInInspector] public PlayerDetails playerDetails;
 
-    PlayerActionManager playerActionManager;
-    bool isDead;
-    bool damaged;
+    private PlayerActionManager playerActionManager;
+    private bool isDead;
+    private bool damaged;
 
     void Awake () {
         playerActionManager = GetComponent<PlayerActionManager> ();
+        playerDetails = GetComponent<PlayerDetails>();
 
-        if (healthSlider == null) {
-            healthSlider = GameObject.Find("HealthSlider").GetComponent<Slider>();
+        if (playerDetails != null) {
+            healthSlider = playerDetails.PlayerUI.HealthSlider;
+            healthSlider.maxValue = startingHealth;
+            healthSlider.value = startingHealth;
         }
-        if (damageImage == null) {
-            damageImage = GameObject.Find("DamageIndicator").GetComponent<Image>();
-        }
-
-        healthSlider.maxValue = startingHealth;
-        healthSlider.value = startingHealth;
         currentHealth = startingHealth;
     }
 
     void Update () {
         if (damaged) {
-            damageImage.color = flashColour;
-        } else {
-            damageImage.color = Color.Lerp (damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+            // Todo: Indicate damage
         }
         damaged = false;
     }

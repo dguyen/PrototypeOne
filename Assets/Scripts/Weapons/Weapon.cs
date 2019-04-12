@@ -1,15 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Weapon : Entity {
     public int pointsPerHit;
-
-    private Inventory inventory;
+    [HideInInspector] public PlayerMoney playerMoney;
+    [HideInInspector] public Text ammoCountText;
+    [HideInInspector] public Inventory inventory;
 
     public virtual void Start() {
         base.AddCapability(Capability.WEAPON);
-        inventory = FindObjectOfType<Inventory>();
     }
 
     public virtual void Update() {

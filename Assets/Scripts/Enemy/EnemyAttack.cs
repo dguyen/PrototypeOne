@@ -2,61 +2,103 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
-{
-    public float attackDelay = 0.5f;
-    public int attackDamage = 1;
+public class EnemyAttack : MonoBehaviour {
+    public float AttackDelay = 0.5f;
+    public int AttackDamage = 30;
 
-    GameObject player;
-    PlayerHealth playerHealth;
-    EnemyHealth enemyHealth;
-    bool inRange;
-    float timer;
-    // Start is called before the first frame update
-    void Awake()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerHealth = player.GetComponent<PlayerHealth>();
-        enemyHealth = GetComponent<EnemyHealth>();
+    private GameObject[] Players;
+    private PlayerHealth[] PlayerHealths;
+    private bool[] InRangePlayers;
+    private EnemyHealth EnemyHealth;
+    private bool InRange;
+    private float Timer;
+
+    void Awake() {
+        Players = GameObject.FindGameObjectsWithTag("Player");
+        PlayerHealths = new PlayerHealth[Players.Length];
+        InRangePlayers = new bool[Players.Length];
+
+        for (int i = 0; i < Players.Length; i++) {
+            PlayerHealths[i] = Players[i].GetComponent<PlayerHealth>();
+        }
+        EnemyHealth = GetComponent<EnemyHealth>();
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject == player)
-        {
-            inRange = true;
+    void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "Player") {
+            for (int i = 0; i < Players.Length; i++) {
+                if (other.gameObject == Players[i] && PlayerHealths[i].currentHealth > 0) {
+                    InRangePlayers[i] = true;
+                    InRange = true;
+                }
+            }
         }
     }
 
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject == player)
-        {
-            inRange = false;
+    void OnTriggerStay(Collider other) {
+        if (other.gameObject.tag == "Player") {
+            for (int i = 0; i < Players.Length; i++) {
+                if (other.gameObject == Players[i] && PlayerHealths[i].currentHealth > 0) {
+                    InRangePlayers[i] = true;
+                    InRange = true;
+                }
+            }
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        timer += Time.deltaTime;
-        if (timer >= attackDelay && inRange && enemyHealth.currentHealth > 0)
-        {
+    void OnTriggerExit(Collider other) {
+        if (other.gameObject.tag == "Player") {
+            for (int i = 0; i < Players.Length; i++) {
+                if (other.gameObject == Players[i]) {
+                    InRangePlayers[i] = false;
+                }
+            }
+        }
+        InRange = false;
+    }
+
+    void Update() {
+        Timer += Time.deltaTime;
+        if (Timer >= AttackDelay && InRange && EnemyHealth.currentHealth > 0) {
             Attack();
             //Todo Attack animation
         }
     }
 
-    void Attack()
-    {
-        timer = 0f;
-        if(playerHealth.currentHealth > 0)
-        {
-            IDamagable hit = (IDamagable)player.gameObject.GetComponent(typeof(IDamagable));
-            if (hit != null)
-            {
-                hit.TakeDamage(attackDamage);
+    /**
+     * Attacks the closest player
+     */
+    void Attack() {
+        Timer = 0f;
+        int PlayerRef = GetClosestPlayer();
+        if(PlayerRef >= 0) {
+            if (PlayerHealths[PlayerRef] != null) {
+                PlayerHealths[PlayerRef].TakeDamage(AttackDamage);
             }
         }
+    }
+
+    /**
+     * Returns the closest alive player GameObject
+     */
+    int GetClosestPlayer() {
+        int ClosestPlayerRef = -1;
+        float ClosestDistanceSqr = Mathf.Infinity;
+        Vector3 CurrentPosition = transform.position;
+
+        for (int i = 0; i < Players.Length; i++) {
+            if (PlayerHealths[i].currentHealth <= 0 || !InRangePlayers[i]) {
+                continue;
+            }
+
+            Transform TmpTransform = Players[i].transform;
+            Vector3 DirectionToTarget = TmpTransform.position - CurrentPosition;
+            float DSqrToTarget = DirectionToTarget.sqrMagnitude;
+            if(DSqrToTarget < ClosestDistanceSqr) {
+                ClosestDistanceSqr = DSqrToTarget;
+                ClosestPlayerRef = i;
+            }
+        }
+        return ClosestPlayerRef;
     }
 }

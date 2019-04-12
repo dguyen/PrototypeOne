@@ -18,7 +18,7 @@ public class Bow : RangedWeapon {
 
     public override void Start() {
         base.Start();
-        ChargeSlider = GameObject.Find("ChargeSlider").GetComponent<Slider>();
+        ChargeSlider = GameObject.Find("ChargeSlider").GetComponent<Slider>(); // Todo: Remove
         ChargeSpeed = (MaxLaunchForce - MinLaunchForce) / MaxChargeTime;
         ChargeSlider.maxValue = MaxLaunchForce;
         ChargeSlider.minValue = MinLaunchForce;
@@ -39,11 +39,11 @@ public class Bow : RangedWeapon {
     }
 
     public override void WeaponActive() {
-        if (Input.GetButtonDown("Fire1")) {
+        if (Input.GetButtonDown("Fire1_P" + playerControlScheme)) {
             Fired = false;
             CurrentLaunchForce = MinLaunchForce;
 
-        } else if (Input.GetButton("Fire1") && !Fired && CurrentLaunchForce < MaxLaunchForce) {
+        } else if (Input.GetButton("Fire1_P" + playerControlScheme) && !Fired && CurrentLaunchForce < MaxLaunchForce) {
             float newLaunchForce = CurrentLaunchForce + ChargeSpeed * Time.deltaTime;
             if (newLaunchForce >= MaxLaunchForce) {
                 newLaunchForce = MaxLaunchForce;
@@ -51,7 +51,7 @@ public class Bow : RangedWeapon {
             CurrentLaunchForce = newLaunchForce;
             ChargeSlider.value = CurrentLaunchForce;
 
-        } else if (Input.GetButtonUp("Fire1") && !Fired) {
+        } else if (Input.GetButtonUp("Fire1_P" + playerControlScheme) && !Fired) {
             Fire();
         }
     }
@@ -62,6 +62,7 @@ public class Bow : RangedWeapon {
         Rigidbody arrowRigidbody = Instantiate(Arrow, ArrowSpawn.position, ArrowSpawn.rotation) as Rigidbody;
         Arrow newArrow = arrowRigidbody.gameObject.GetComponent<Arrow>();
         newArrow.moneyPerHit = pointsPerHit;
+        newArrow.playerMoney = playerMoney;
         float damageMultiplier = ((CurrentLaunchForce - MinLaunchForce) / 10) + 1;
         newArrow.perArrowDamage = Mathf.RoundToInt(newArrow.perArrowDamage * damageMultiplier);
         arrowRigidbody.velocity = ArrowSpawn.forward * CurrentLaunchForce;

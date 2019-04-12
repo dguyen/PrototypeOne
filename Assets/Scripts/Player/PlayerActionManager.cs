@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerActionManager : MonoBehaviour {
     private Inventory inventory;
+    private PlayerMoney playerMoney;
 
     void Start() {
-        inventory = FindObjectOfType<Inventory>();        
+        inventory = GetComponent<Inventory>();
+        playerMoney = GetComponent<PlayerMoney>();
     }
 
     /*
@@ -38,6 +40,7 @@ public class PlayerActionManager : MonoBehaviour {
             action.enabled = false;
         }
         inventory.enabled = false;
+        playerMoney.enabled = false;
     }
 
     /*
@@ -49,5 +52,6 @@ public class PlayerActionManager : MonoBehaviour {
             action.enabled = true;
         }
         inventory.enabled = true;
+        playerMoney.enabled = true;
     }
 }

@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour, IAction {
     public float interactRadius = 2f;
-    public KeyCode interactKey = KeyCode.F;
+    [HideInInspector] public int playerControlScheme = 1;
+    [HideInInspector] public PlayerDetails playerDetails;
 
     private IInteractable tmpInteractable;
 
+    void Awake() {
+        playerDetails = GetComponent<PlayerDetails>();
+        if (playerDetails != null) {
+            playerControlScheme = playerDetails.PlayerControlScheme;
+        }
+    }
+
     void Update() {
-        if (Input.GetKeyUp(interactKey)) {
+        if (Input.GetButtonUp("Interact_P" + playerControlScheme)) {
             Act();
         }
     }

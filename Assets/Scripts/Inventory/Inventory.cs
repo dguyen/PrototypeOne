@@ -7,25 +7,29 @@ public class Inventory : MonoBehaviour {
     public const int numItemSlots = 3;
     public InventoryUI inventoryUI;
     public GameObject itemSpawn;
+    [HideInInspector] public int playerControlScheme = 1;
+    [HideInInspector] public PlayerDetails playerDetails;
 
     private GameObject[] storedObjects = new GameObject[numItemSlots];
     private int selectedItem = 0;
+    private PlayerMoney playerMoney;
 
     void Start() {
-        if (inventoryUI == null) {
-            inventoryUI = GameObject.Find("Inventory").GetComponent<InventoryUI>();
-        }
+        playerMoney = GetComponent<PlayerMoney>();
+        playerDetails = GetComponent<PlayerDetails>();
+        playerControlScheme = playerDetails.PlayerControlScheme;
+        inventoryUI = playerDetails.PlayerUI.InventoryUI;
         SelectItem(selectedItem);
     }
 
     void Update() {
-        if (Input.GetAxis("Mouse ScrollWheel") == -0.1f) {
+        if (Input.GetButtonDown("Previous_Weapon_P" + playerControlScheme)) {
             if (selectedItem == numItemSlots - 1) {
                 SelectItem(0);
             } else {
                 SelectItem(selectedItem + 1);
             }
-        } else if (Input.GetAxis("Mouse ScrollWheel") == 0.1f) {
+        } else if (Input.GetButtonDown("Next_Weapon_P" + playerControlScheme)) {
             if (selectedItem == 0) {
                 SelectItem(numItemSlots - 1);
             } else {
@@ -40,7 +44,7 @@ public class Inventory : MonoBehaviour {
         }
 
         selectedItem = newSelectedItem;
-        inventoryUI.Select(selectedItem);
+        UpdateInventoryUI();
 
         if (storedObjects[selectedItem] != null) {
             storedObjects[selectedItem].SetActive(true);
@@ -52,23 +56,18 @@ public class Inventory : MonoBehaviour {
         if (entity == null) {
             return false;
         }
+        ((Entity)entity).playerControlScheme = playerControlScheme;
+        ((Weapon)entity).playerMoney = playerMoney;
+        ((Weapon)entity).ammoCountText = playerDetails.PlayerUI.AmmoCountText;
+        ((Weapon)entity).inventory = this;
 
         for (int i = 0; i < storedObjects.Length; i++) {
             if (storedObjects[i] == null) {
-                // Store the item and update inventory UI
                 storedObjects[i] = itemGameObject;
-                inventoryUI.SetImage(i, entity.GetSprite());
-
-                // Set the location and rotation ?
                 itemGameObject.transform.parent = itemSpawn.transform;
                 itemGameObject.transform.localPosition = new Vector3();
                 itemGameObject.transform.rotation = new Quaternion();
-
-                itemGameObject.SetActive(false);
-                if (i == selectedItem) {
-                    SelectItem(i);
-                }
-
+                SelectItem(i);
                 return true;
             }
         }
@@ -84,7 +83,6 @@ public class Inventory : MonoBehaviour {
         for (int i = 0; i < storedObjects.Length; i++) {
             if (storedObjects[i] == objectToRemove) {
                 storedObjects[i] = null;
-                inventoryUI.RemoveImage(i);
                 return true;
             }
         }
@@ -115,5 +113,16 @@ public class Inventory : MonoBehaviour {
             return tmpObject.GetComponent<IEntity>();
         }
         return null;
+    }
+
+    private void UpdateInventoryUI() {
+        if (storedObjects[selectedItem] == null) {
+            inventoryUI.RemoveImage();
+        } else {
+            Sprite sprite = storedObjects[selectedItem].GetComponent<IEntity>().GetSprite();
+            if (sprite != null) {
+                inventoryUI.SetImage(sprite);
+            }
+        }
     }
 }

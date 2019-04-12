@@ -6,14 +6,14 @@ using UnityEngine.UI;
 public class PlayerMoney : MonoBehaviour {
     public int initialPlayerMoney = 500;
     public Text moneyText;
+    [HideInInspector] public PlayerDetails playerDetails;
 
     private int playerMoney = 0;
 
     public void Start() {
+        playerDetails = GetComponent<PlayerDetails>();
+        moneyText = playerDetails.PlayerUI.MoneyText;
         playerMoney = initialPlayerMoney;
-        if (moneyText == null) {
-            moneyText = GameObject.Find("MoneyText").GetComponent<Text>();
-        }
         UpdateUI();
     }
 
