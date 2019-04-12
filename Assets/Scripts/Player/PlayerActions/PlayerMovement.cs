@@ -66,14 +66,26 @@ public class PlayerMovement : MonoBehaviour, IAction {
     }
 
     void Turning() {
-        Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit floorhit;
+        /**
+         * If using mouse, use raycasting to turn
+         * Todo: Remove keyboard support in future for console versions
+         */
+        if (playerControlScheme == 1) {
+            Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit floorhit;
 
-        if(Physics.Raycast(camRay, out floorhit, camRayLength, floorMask)) {
-            Vector3 playerToMouse = floorhit.point - transform.position;
-            playerToMouse.y = 0f;
-            Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-            playerRigidbody.MoveRotation(newRotation);
+            if(Physics.Raycast(camRay, out floorhit, camRayLength, floorMask)) {
+                Vector3 playerToMouse = floorhit.point - transform.position;
+                playerToMouse.y = 0f;
+                Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
+                playerRigidbody.MoveRotation(newRotation);
+            }
+        } else {
+            Vector3 playerDirection = Vector3.right * Input.GetAxisRaw("Mouse_X_P" + playerControlScheme) + Vector3.forward * Input.GetAxisRaw("Mouse_Y_P" + playerControlScheme);
+
+            if (playerDirection.sqrMagnitude > 0.0f) {
+                transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
+            }
         }
     }
 
