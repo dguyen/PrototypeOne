@@ -6,6 +6,7 @@ public class SpawnManager : MonoBehaviour {
     public int minimumSpawnAmount = 5;
     public GameObject spawnArea;
     public GameObject[] enemies;
+    public Area[] areas;
 
     private int enemiesLeft;
     private int enemiesToSpawn;
@@ -33,17 +34,46 @@ public class SpawnManager : MonoBehaviour {
     }
 
     private IEnumerator Spawn() {
-        Vector3 spawnLocation = GetRandomPosition();
-        spawnedEnemies.Add(Instantiate(enemies[0], spawnLocation, Quaternion.identity));
+        spawnedEnemies.Add(GetRandomArea().Spawn(enemies[0]));
+
         enemiesToSpawn--;
         yield return new WaitForSeconds(1);
     }
 
-    private Vector3 GetRandomPosition() {
-        float randomX = Random.Range(spawnArea.transform.position.x - (5 * spawnArea.transform.localScale.x / 2), spawnArea.transform.position.x + (5 * spawnArea.transform.localScale.x / 2));
-        float randomY = Random.Range(spawnArea.transform.position.y - (5 * spawnArea.transform.localScale.y / 2), spawnArea.transform.position.y + (5 * spawnArea.transform.localScale.y / 2));
-        float randomZ = Random.Range(spawnArea.transform.position.y - (5 * spawnArea.transform.localScale.z / 2), spawnArea.transform.position.y + (5 * spawnArea.transform.localScale.z / 2)); 
-        return new Vector3 (randomX, randomY, randomZ);
+    /**
+     * Returns a semi-random valid spawning area
+     */
+    private Area GetRandomArea() {
+        float p = Random.Range(0, 100)/100f;
+        float cumulativeP = 0.0f;
+        float[] areaP = GetProbability(); // Potentially move this to class variable per wave to improve efficiency
+        for (int i = 0; i < areas.Length; i++) {
+            cumulativeP += areaP[i];
+            if (p <= cumulativeP) {
+                return areas[i];
+            }
+        }
+        return areas[1];
+    }
+
+    /**
+     * Returns an array determining the probability of spawning an enemy
+     */
+    private float[] GetProbability() {
+        float total = 0;
+        float[] probabilities = new float[areas.Length];
+        for (int i = 0; i < areas.Length; i++) {
+            if (areas[i].IsOpen) {
+                probabilities[i] = 1 + areas[i].GetNumPlayers();
+                total += probabilities[i];
+            }
+        }
+        for (int i = 0; i < probabilities.Length; i++) {
+            if (probabilities[i] > 0) {
+                probabilities[i] = probabilities[i]/total;
+            }
+        }
+        return probabilities;
     }
 
     public int EnemiesLeft() {
