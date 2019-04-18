@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e049d3ecde45348448fb482ca43c5f00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 1
+  playerControlScheme: 1
   playerDetails: {fileID: 0}
   speed: 6
   staminaSlider: {fileID: 0}
@@ -242,7 +242,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 0}
   itemSpawn: {fileID: 1482928444}
-  playerNumber: 1
+  startingItem: {fileID: 5493161888826117430, guid: 384b8dad768872648bd2a2bb3bcb6047,
+    type: 3}
+  playerControlScheme: 1
   playerDetails: {fileID: 0}
 --- !u!114 &1988680570
 MonoBehaviour:
@@ -272,7 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactRadius: 1
-  playerNumber: 1
+  playerControlScheme: 1
   playerDetails: {fileID: 0}
 --- !u!1 &8290756651783905194
 GameObject:

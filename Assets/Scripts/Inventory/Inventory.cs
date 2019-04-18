@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour {
     public const int numItemSlots = 3;
     public InventoryUI inventoryUI;
     public GameObject itemSpawn;
+    public GameObject startingItem;
     [HideInInspector] public int playerControlScheme = 1;
     [HideInInspector] public PlayerDetails playerDetails;
 
@@ -19,7 +20,11 @@ public class Inventory : MonoBehaviour {
         playerDetails = GetComponent<PlayerDetails>();
         playerControlScheme = playerDetails.PlayerControlScheme;
         inventoryUI = playerDetails.PlayerUI.InventoryUI;
-        SelectItem(selectedItem);
+        if (startingItem != null) {
+            AddItem(Instantiate(startingItem));
+        } else {
+            SelectItem(selectedItem);
+        }
     }
 
     void Update() {
