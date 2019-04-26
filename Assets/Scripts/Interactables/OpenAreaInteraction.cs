@@ -5,6 +5,13 @@ using UnityEngine;
 public class OpenAreaInteraction : MonoBehaviour, IInteractable {
     public Area AreaToOpen;
     public int CostToOpen;
+    public Indicator PIndicator;
+
+    void Start() {
+        if (PIndicator != null) {
+            PIndicator.IndicatorText.text = "$" + CostToOpen;
+        }
+    }
 
     public void Interact(GameObject Player) {
         PlayerMoney PMoney = Player.GetComponent<PlayerMoney>();
