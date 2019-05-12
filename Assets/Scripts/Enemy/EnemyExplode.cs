@@ -19,7 +19,7 @@ public class EnemyExplode : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player") || health.currentHealth <= 0)
+        if (!other.CompareTag("Player") || health.currentHealth <= 0 || other.GetComponent<PlayerHealth>().currentHealth <= 0)
         {
             return;
         }
