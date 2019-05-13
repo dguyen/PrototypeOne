@@ -10,11 +10,18 @@ public class EnemyExplode : MonoBehaviour
     public LayerMask playerMask;
     public ParticleSystem explosionParticles;
     public int explosionDamage;
+    public bool explodeOnDeath = false;
 
     private EnemyHealth health;
 
     void Awake() {
         health = GetComponent<EnemyHealth>();
+    }
+
+    void Update() {
+        if (explodeOnDeath && health.currentHealth <= 0) {
+            Explode();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -23,6 +30,13 @@ public class EnemyExplode : MonoBehaviour
         {
             return;
         }
+        Explode();
+    }
+
+    /**
+     * Damages all entities within a certain radius around this GameObject
+     */
+    private void Explode() {
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius, playerMask);
 
         for (int i = 0; i < colliders.Length; i++)

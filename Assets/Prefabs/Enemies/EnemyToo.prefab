@@ -451,6 +451,7 @@ MonoBehaviour:
     m_Bits: 512
   explosionParticles: {fileID: 5697508546870634561}
   explosionDamage: 30
+  explodeOnDeath: 1
 --- !u!114 &5697508547662662356
 MonoBehaviour:
   m_ObjectHideFlags: 0
