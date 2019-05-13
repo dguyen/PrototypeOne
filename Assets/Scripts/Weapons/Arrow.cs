@@ -14,7 +14,7 @@ public class Arrow : Entity {
     }
 
     private void OnCollisionEnter(Collision other) {
-        if (stuck || other.gameObject.tag == "Player") {
+        if (stuck || other.gameObject.CompareTag("Player")) {
             return;
         }
         StickArrow(other);
@@ -26,7 +26,7 @@ public class Arrow : Entity {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.tag == "Player") {
+        if (other.CompareTag("Player")) {
             Bow bow = other.gameObject.GetComponentInChildren<Bow>(true);
             if (bow) {
                 bow.IncreaseAmmo(1);

@@ -247,3 +247,4 @@ MonoBehaviour:
   Item: {fileID: 6896715868533565753, guid: b9252f46f3c8aeb409dd3cb79b236576, type: 3}
   BuyPrice: 500
   RefillPrice: 250
+  PIndicator: {fileID: 0}

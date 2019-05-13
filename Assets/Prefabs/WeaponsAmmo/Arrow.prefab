@@ -76,9 +76,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityName: Arrow
+  playerControlScheme: 1
   entitySprite: {fileID: 0}
-  perArrowDamage: 10
+  perArrowDamage: 30
   moneyPerHit: 20
+  playerMoney: {fileID: 0}
 --- !u!54 &8817583390908174872
 Rigidbody:
   m_ObjectHideFlags: 0

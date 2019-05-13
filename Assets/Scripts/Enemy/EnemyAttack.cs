@@ -25,7 +25,7 @@ public class EnemyAttack : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
-        if (other.gameObject.tag == "Player") {
+        if (other.gameObject.CompareTag("Player")) {
             for (int i = 0; i < Players.Length; i++) {
                 if (other.gameObject == Players[i] && PlayerHealths[i].currentHealth > 0) {
                     InRangePlayers[i] = true;
@@ -36,7 +36,7 @@ public class EnemyAttack : MonoBehaviour {
     }
 
     void OnTriggerStay(Collider other) {
-        if (other.gameObject.tag == "Player") {
+        if (other.gameObject.CompareTag("Player")) {
             for (int i = 0; i < Players.Length; i++) {
                 if (other.gameObject == Players[i] && PlayerHealths[i].currentHealth > 0) {
                     InRangePlayers[i] = true;
@@ -47,7 +47,7 @@ public class EnemyAttack : MonoBehaviour {
     }
 
     void OnTriggerExit(Collider other) {
-        if (other.gameObject.tag == "Player") {
+        if (other.gameObject.CompareTag("Player")) {
             for (int i = 0; i < Players.Length; i++) {
                 if (other.gameObject == Players[i]) {
                     InRangePlayers[i] = false;
