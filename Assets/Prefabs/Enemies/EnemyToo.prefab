@@ -348,7 +348,7 @@ GameObject:
   - component: {fileID: 5697508547662662356}
   - component: {fileID: 5697508547662662357}
   - component: {fileID: 5697508547662662354}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EnemyToo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -431,8 +431,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.35
-  m_Center: {x: 0, y: 0.35, z: 0}
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!114 &5697508547662662358
 MonoBehaviour:
   m_ObjectHideFlags: 0
