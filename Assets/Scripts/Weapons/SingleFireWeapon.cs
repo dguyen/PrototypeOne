@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SingleFireWeapon : RangedWeapon {
-    public int damagePerShot = 30;
-    public float fireDelay = 0.2f;
-    public float range = 100f;
     public Transform gunPoint;
     public ParticleSystem gunParticles;
 
@@ -21,23 +18,23 @@ public class SingleFireWeapon : RangedWeapon {
         shootableMask = LayerMask.GetMask("Shootable");
         gunLine = GetComponent<LineRenderer>();
         gunLight = GetComponent<Light>();
-        if (fireDelay < effectsDisplayTime) {
-            effectsDisplayTime = fireDelay;
+        if (attackDelay < effectsDisplayTime) {
+            effectsDisplayTime = attackDelay;
         }
     }
 
     public override void Update() {
         base.Update();
         timer += Time.deltaTime;
-        if(timer >= fireDelay * effectsDisplayTime) {
+        if(timer >= attackDelay * effectsDisplayTime) {
             DisableEffects();
         }
     }
 
     public override void WeaponActive() {
-        if (Input.GetButtonDown("Fire1_P" + playerControlScheme) && timer >= fireDelay) {
+        if (Input.GetButtonDown("Fire1_P" + playerControlScheme) && timer >= attackDelay) {
             timer = 0f;
-            Fire();    
+            Fire();
         }
     }
 
@@ -60,7 +57,7 @@ public class SingleFireWeapon : RangedWeapon {
         if (Physics.Raycast(shootRay, out shootHit, range, shootableMask)) {
             IDamagable damagable = shootHit.collider.GetComponent<IDamagable>();
             if (damagable != null) {
-                damagable.TakeDamage(damagePerShot);
+                damagable.TakeDamage(damagePerHit);
                 playerMoney.IncreaseMoney(pointsPerHit);
             }
             gunLine.SetPosition(1, shootHit.point);

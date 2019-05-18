@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Weapon : Entity {
     public int pointsPerHit;
+    public int damagePerHit;
+    public float attackDelay;
     [HideInInspector] public PlayerMoney playerMoney;
     [HideInInspector] public Text ammoCountText;
     [HideInInspector] public Inventory inventory;

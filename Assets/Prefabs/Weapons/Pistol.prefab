@@ -4977,12 +4977,12 @@ MonoBehaviour:
   playerControlScheme: 1
   entitySprite: {fileID: 21300000, guid: 8cb4a7afeed2ff744ad9548895866f5b, type: 3}
   pointsPerHit: 20
+  damagePerHit: 50
+  attackDelay: 0.2
   playerMoney: {fileID: 0}
   ammoCountText: {fileID: 0}
   inventory: {fileID: 0}
   ammoCapacity: 20
-  damagePerShot: 40
-  fireDelay: 0.2
   range: 100
   gunPoint: {fileID: 1403221316}
   gunParticles: {fileID: 2032597073}
