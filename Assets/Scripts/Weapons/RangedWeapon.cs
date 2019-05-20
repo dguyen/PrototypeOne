@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class RangedWeapon : Weapon {
     public int ammoCapacity = 20;
+    public float range = 100f;
 
     private int ammoCount;
 

@@ -12,7 +12,9 @@ public class PlayerMoney : MonoBehaviour {
 
     public void Start() {
         playerDetails = GetComponent<PlayerDetails>();
-        moneyText = playerDetails.PlayerUI.MoneyText;
+        if (playerDetails != null) {
+            moneyText = playerDetails.PlayerUI.MoneyText;
+        }
         playerMoney = initialPlayerMoney;
         UpdateUI();
     }

@@ -18,8 +18,10 @@ public class Inventory : MonoBehaviour {
     void Start() {
         playerMoney = GetComponent<PlayerMoney>();
         playerDetails = GetComponent<PlayerDetails>();
-        playerControlScheme = playerDetails.PlayerControlScheme;
-        inventoryUI = playerDetails.PlayerUI.InventoryUI;
+        if (playerDetails != null) {
+            playerControlScheme = playerDetails.PlayerControlScheme;
+            inventoryUI = playerDetails.PlayerUI.InventoryUI;
+        }
         if (startingItem != null) {
             AddItem(Instantiate(startingItem));
         } else {
