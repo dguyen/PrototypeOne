@@ -5,9 +5,9 @@ using UnityEngine;
 public class SingleFireWeapon : RangedWeapon {
     public Transform gunPoint;
     public ParticleSystem gunParticles;
+    public float effectsDisplayTime = 0.1f;
 
     private float timer;
-    private float effectsDisplayTime = 0.2f;
     private Ray shootRay = new Ray();
     private RaycastHit shootHit;
     private int shootableMask;
@@ -26,16 +26,19 @@ public class SingleFireWeapon : RangedWeapon {
     public override void Update() {
         base.Update();
         timer += Time.deltaTime;
-        if(timer >= attackDelay * effectsDisplayTime) {
+        if(timer >= effectsDisplayTime) {
             DisableEffects();
         }
     }
 
     public override void WeaponActive() {
-        if (Input.GetButtonDown("Fire1_P" + playerControlScheme) && timer >= attackDelay) {
-            timer = 0f;
+        if (Input.GetButtonDown("Fire1_P" + playerControlScheme) && CanFire()) {
             Fire();
         }
+    }
+
+    public bool CanFire() {
+        return timer >= attackDelay;
     }
 
     public void DisableEffects () {
@@ -43,7 +46,8 @@ public class SingleFireWeapon : RangedWeapon {
         gunLight.enabled = false;
     }
 
-    private void Fire() {
+    public void Fire() {
+        timer = 0f;
         gunLight.enabled = true;
         gunParticles.Stop();
         gunParticles.Play();
