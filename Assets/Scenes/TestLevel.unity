@@ -1343,7 +1343,7 @@ PrefabInstance:
     - target: {fileID: 69096937, guid: af478c9a71170c342982f175b7a4cc0c, type: 3}
       propertyPath: startingItem
       value: 
-      objectReference: {fileID: 7870440452268115018, guid: 9fa4d08d1758fa44191b80da8057470f,
+      objectReference: {fileID: 5493161888826117430, guid: 384b8dad768872648bd2a2bb3bcb6047,
         type: 3}
     - target: {fileID: 1988680570, guid: af478c9a71170c342982f175b7a4cc0c, type: 3}
       propertyPath: moneyText

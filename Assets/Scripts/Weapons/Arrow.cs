@@ -5,46 +5,55 @@ using UnityEngine;
 public class Arrow : Entity {
     public int perArrowDamage = 10;
     public int moneyPerHit;
+    public ParticleSystem arrowDestroyParticle;
     [HideInInspector] public PlayerMoney playerMoney;
 
-    private bool stuck;
+    private Rigidbody arrowRb;
 
     void Start() {
+        arrowRb = gameObject.GetComponent<Rigidbody>();
         Destroy(gameObject, 120);
     }
 
-    private void OnCollisionEnter(Collision other) {
-        if (stuck || other.gameObject.CompareTag("Player")) {
+    void FixedUpdate() {
+        // Rotate arrow depending on velocity
+        if (arrowRb.velocity != Vector3.zero) {
+            arrowRb.rotation = Quaternion.LookRotation(arrowRb.velocity);
+        }
+    }
+
+    void OnCollisionEnter(Collision other) {
+        if (other.gameObject.CompareTag("Player")) {
             return;
         }
-        StickArrow(other);
-        IDamagable[] damagables = other.gameObject.GetComponents<IDamagable>();
-        foreach (IDamagable damagable in damagables) {
+        IDamagable damagable = other.gameObject.GetComponent<IDamagable>();
+        if (damagable != null) {
             damagable.TakeDamage(perArrowDamage);
             playerMoney.IncreaseMoney(moneyPerHit);
         }
+        ReattachParticle(other.gameObject);
+        DestroyArrow();
     }
 
-    private void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Player")) {
-            Bow bow = other.gameObject.GetComponentInChildren<Bow>(true);
-            if (bow) {
-                bow.IncreaseAmmo(1);
-                gameObject.SetActive(false);
-                Destroy(gameObject);
-            }
-        }
-    }
-
-    private void StickArrow(Collision toStick) {
-        stuck = true;
-        Destroy(gameObject.GetComponent<Rigidbody>());
-        var emptyObject = new GameObject();
-        if (toStick.gameObject.isStatic) {
-            emptyObject.transform.parent = toStick.GetContact(0).thisCollider.transform;
+    /**
+     * Removes destroy particle system from gameobject and reattaches to another gameobject
+     */
+    void ReattachParticle(GameObject other) {
+        if (other.gameObject.isStatic) {
+            arrowDestroyParticle.gameObject.transform.parent = null;
         } else {
-            emptyObject.transform.parent = toStick.transform;
+            var emptyObject = new GameObject();
+            emptyObject.transform.parent = other.transform;
+            arrowDestroyParticle.gameObject.transform.parent = emptyObject.transform;
         }
-        gameObject.transform.parent = emptyObject.transform;
+    }
+
+    void DestroyArrow() {
+        if (arrowDestroyParticle != null) {
+            arrowDestroyParticle.Play();
+            Destroy(arrowDestroyParticle, 1);
+        }
+        gameObject.SetActive(false);
+        Destroy(gameObject, 2);
     }
 }
