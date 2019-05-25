@@ -22,11 +22,18 @@ public class EnemyMovement : MonoBehaviour {
     }
 
     void Update() {
-        if (EnemyHealth.currentHealth <= 0) {
+        if (!IsAlive()) {
             Nav.enabled = false;
             return;
         }
+        Move();
+    }
 
+    public UnityEngine.AI.NavMeshAgent GetNav() {
+        return Nav;
+    }
+
+    public virtual void Move() {
         GameObject ClosestPlayer = GetClosestPlayer();
         if (ClosestPlayer != null) {
             Nav.SetDestination (ClosestPlayer.transform.position);
@@ -35,10 +42,14 @@ public class EnemyMovement : MonoBehaviour {
         }
     }
 
+    public bool IsAlive() {
+        return EnemyHealth.currentHealth > 0;
+    }
+
     /**
      * Returns the closest alive player GameObject
      */
-    GameObject GetClosestPlayer() {
+    public GameObject GetClosestPlayer() {
         GameObject ClosestPlayer = null;
         float ClosestDistanceSqr = Mathf.Infinity;
         Vector3 CurrentPosition = transform.position;
