@@ -32,17 +32,16 @@ public class PlayerMovement : MonoBehaviour, IAction {
     void Awake() {
         floorMask = LayerMask.GetMask("Floor");
         playerRigidbody = GetComponent<Rigidbody>();
-
         playerDetails = GetComponent<PlayerDetails>();
 
         if (playerDetails != null) {
             playerControlScheme = playerDetails.PlayerControlScheme;
             staminaSlider = playerDetails.PlayerUI.StaminaSlider;
-
-            staminaSlider.maxValue = staminaLength;
-            currentStamina = staminaLength;
-            staminaSlider.value = currentStamina;
         }
+
+        staminaSlider.maxValue = staminaLength;
+        currentStamina = staminaLength;
+        staminaSlider.value = currentStamina;
     }
 
     void FixedUpdate() {

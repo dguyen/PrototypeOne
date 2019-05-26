@@ -7,9 +7,6 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
     public int startingHealth = 100;
     public int currentHealth;
     public Slider healthSlider;
-    public Image damageImage;
-    public float flashSpeed = 5f;
-    public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
     [HideInInspector] public PlayerDetails playerDetails;
 
     private PlayerActionManager playerActionManager;
@@ -19,13 +16,12 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
     void Awake () {
         playerActionManager = GetComponent<PlayerActionManager> ();
         playerDetails = GetComponent<PlayerDetails>();
+        currentHealth = startingHealth;
 
         if (playerDetails != null) {
             healthSlider = playerDetails.PlayerUI.HealthSlider;
-            healthSlider.maxValue = startingHealth;
-            healthSlider.value = startingHealth;
         }
-        currentHealth = startingHealth;
+        UpdateHealthSlider();
     }
 
     void Update () {
@@ -39,10 +35,20 @@ public class PlayerHealth : MonoBehaviour, IDamagable {
         if (isDead) return;
         damaged = true;
         currentHealth -= amount;
-        healthSlider.value = currentHealth;
+        UpdateHealthSlider();
         // Todo: Play damage sound
         if(currentHealth <= 0 && !isDead) {
             Death ();
+        }
+    }
+
+    /**
+     * Update the Player's health slider
+     */
+    public void UpdateHealthSlider() {
+        if (healthSlider != null) {
+            healthSlider.maxValue = startingHealth;
+            healthSlider.value = currentHealth;
         }
     }
 
