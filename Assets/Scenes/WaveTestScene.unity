@@ -1069,7 +1069,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minimumSpawnAmount: 5
-  spawnArea: {fileID: 0}
   enemies:
   - enemy: {fileID: 8247845191117845695, guid: f48e25e21279db641b36d955da307ec0, type: 3}
     enemyType: 0
@@ -1077,6 +1076,9 @@ MonoBehaviour:
   - enemy: {fileID: 5697634447124802988, guid: 6e683dcc130d0de4a83bfdef38fc6ec1, type: 3}
     enemyType: 0
     minWaveSpawn: 3
+  - enemy: {fileID: 4042996404262707138, guid: 0ec00bab56287a74da07e6ab43ca559e, type: 3}
+    enemyType: 1
+    minWaveSpawn: 5
   areas:
   - {fileID: 934021591}
   - {fileID: 1338514738}
