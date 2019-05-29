@@ -22,7 +22,7 @@ public class Weapon : Entity {
     }
 
     public bool WeaponSelected() {
-        return inventory.GetSelectedItem() == gameObject;
+        return inventory.enabled && inventory.GetSelectedItem() == gameObject;
     }
 
     public virtual bool CanShoot() {

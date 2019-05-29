@@ -23,20 +23,28 @@ public class PlayerMovement : MonoBehaviour, IAction {
     [Tooltip("How fast stamina depletes")]
     public float staminaDepletionSpeed = 1.5f;
 
+    public Image crosshair; 
+    public float crosshairDistance = 2.5f; 
+    public Transform firingHeight;
+
     private Rigidbody playerRigidbody;
     private int floorMask;
     private bool staminaDepleted = false;
     private float camRayLength = 100f;
     private float currentStamina;
+    private Camera m_Camera;
 
     void Awake() {
         floorMask = LayerMask.GetMask("Floor");
         playerRigidbody = GetComponent<Rigidbody>();
         playerDetails = GetComponent<PlayerDetails>();
+        m_Camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
         if (playerDetails != null) {
             playerControlScheme = playerDetails.PlayerControlScheme;
             staminaSlider = playerDetails.PlayerUI.StaminaSlider;
+            crosshair = playerDetails.PlayerUI.CrosshairImage;
+            UpdateCrosshair();
         }
 
         staminaSlider.maxValue = staminaLength;
@@ -77,14 +85,24 @@ public class PlayerMovement : MonoBehaviour, IAction {
                 Vector3 playerToMouse = floorhit.point - transform.position;
                 playerToMouse.y = 0f;
                 Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-                playerRigidbody.MoveRotation(newRotation);
+
+                if (playerToMouse.sqrMagnitude > 0.0f) {
+                    transform.rotation = newRotation;
+                }
             }
         } else {
             Vector3 playerDirection = Vector3.right * Input.GetAxisRaw("Mouse_X_P" + playerControlScheme) + Vector3.forward * Input.GetAxisRaw("Mouse_Y_P" + playerControlScheme);
-
             if (playerDirection.sqrMagnitude > 0.0f) {
                 transform.rotation = Quaternion.LookRotation(playerDirection, Vector3.up);
             }
+        }
+        UpdateCrosshair();
+    }
+
+    void UpdateCrosshair() {
+        if (crosshair != null) {
+            Vector2 tmp = m_Camera.WorldToScreenPoint(firingHeight.transform.position + gameObject.transform.forward * crosshairDistance);
+            crosshair.transform.position = Vector2.Lerp(crosshair.transform.position, tmp, 0.6f);
         }
     }
 
@@ -116,6 +134,18 @@ public class PlayerMovement : MonoBehaviour, IAction {
 
     bool isSprinting() {
         return Input.GetButton("Sprint_P" + playerControlScheme);
+    }
+
+    void OnEnable() {
+        if (crosshair != null) {
+            crosshair.enabled = true;
+        }
+    }
+
+    void OnDisable() {
+        if (crosshair != null) {
+            crosshair.enabled = false;
+        }
     }
 
     public bool CanDo() {

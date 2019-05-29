@@ -11,6 +11,7 @@ public class PlayerUI: MonoBehaviour {
     public Text MoneyText;
     public Text AmmoCountText;
     public InventoryUI InventoryUI;
+    public Image CrosshairImage;
 
     void Start() {
         AmmoCountText.text = "0/0";

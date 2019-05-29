@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour {
     public GameObject[] m_SpawnPoints;
     public PlayerManager[] m_Players;
     public WaveManager m_WaveManager;
-    public GameObject m_LocalMultiCamera;
-    public GameObject m_SinglePlayerCamera;
+    public CameraLocalMultiplayer m_LocalMultiCamera;
+    public CameraFollow m_SinglePlayerCamera;
 
     public UIManager m_UIManager;
 
@@ -33,12 +33,12 @@ public class GameManager : MonoBehaviour {
 
         // Setup single player camera or local multiplayer camera
         if (m_Players.Length > 1) {
-            m_SinglePlayerCamera.SetActive(false);
-            m_LocalMultiCamera.SetActive(true);
+            m_SinglePlayerCamera.enabled = false;
+            m_LocalMultiCamera.enabled = true;
             SetupLocalMultiplayerCamera();
         } else {
-            m_LocalMultiCamera.SetActive(false);
-            m_SinglePlayerCamera.SetActive(true);
+            m_LocalMultiCamera.enabled = false;
+            m_SinglePlayerCamera.enabled = true;
             SetupSinglePlayerCamera();
         }
 

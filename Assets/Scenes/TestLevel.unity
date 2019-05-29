@@ -1268,11 +1268,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 8247868287208879313, guid: af478c9a71170c342982f175b7a4cc0c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6249639016232928316, guid: af478c9a71170c342982f175b7a4cc0c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1332,6 +1327,14 @@ PrefabInstance:
       propertyPath: staminaSlider
       value: 
       objectReference: {fileID: 897978814}
+    - target: {fileID: 2019876970, guid: af478c9a71170c342982f175b7a4cc0c, type: 3}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 1079317861}
+    - target: {fileID: 2019876970, guid: af478c9a71170c342982f175b7a4cc0c, type: 3}
+      propertyPath: crosshairDistance
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 269953889, guid: af478c9a71170c342982f175b7a4cc0c, type: 3}
       propertyPath: healthSlider
       value: 
@@ -1340,11 +1343,6 @@ PrefabInstance:
       propertyPath: inventoryUI
       value: 
       objectReference: {fileID: 336748303}
-    - target: {fileID: 69096937, guid: af478c9a71170c342982f175b7a4cc0c, type: 3}
-      propertyPath: startingItem
-      value: 
-      objectReference: {fileID: 5493161888826117430, guid: 384b8dad768872648bd2a2bb3bcb6047,
-        type: 3}
     - target: {fileID: 1988680570, guid: af478c9a71170c342982f175b7a4cc0c, type: 3}
       propertyPath: moneyText
       value: 
@@ -1417,6 +1415,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1079317861 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1079317861, guid: ae9b551f14a1a024780c710abe80d452,
+    type: 3}
+  m_PrefabInstance: {fileID: 1227354881}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1124326810
 GameObject:
   m_ObjectHideFlags: 0
@@ -1743,36 +1753,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6651361331857078749, guid: ae9b551f14a1a024780c710abe80d452,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 75
-      objectReference: {fileID: 0}
-    - target: {fileID: 6651361331857078749, guid: ae9b551f14a1a024780c710abe80d452,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 75
-      objectReference: {fileID: 0}
-    - target: {fileID: 7108281162559335913, guid: ae9b551f14a1a024780c710abe80d452,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7108281162559335913, guid: ae9b551f14a1a024780c710abe80d452,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7108281162559335913, guid: ae9b551f14a1a024780c710abe80d452,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7108281162559335913, guid: ae9b551f14a1a024780c710abe80d452,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0.627451
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae9b551f14a1a024780c710abe80d452, type: 3}
