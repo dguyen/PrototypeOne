@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour {
+    private bool CanMove = true;
     private GameObject[] Players;
     private PlayerHealth[] PlayerHealths;
     private PlayerHealth PlayerHealth;
     private EnemyHealth EnemyHealth;
+    private Animator EnemyAnimator;
     private UnityEngine.AI.NavMeshAgent Nav;
     
     void Awake() {
         Players = GameObject.FindGameObjectsWithTag("Player");
+        EnemyAnimator = GetComponent<Animator>();
         PlayerHealths = new PlayerHealth[Players.Length];
 
         for (int i = 0; i < Players.Length; i++) {
@@ -25,23 +28,54 @@ public class EnemyMovement : MonoBehaviour {
         if (!IsAlive()) {
             Nav.enabled = false;
             return;
+        } else if (CanMove) {
+            Move();
         }
-        Move();
     }
 
+    /**
+     * Returns the NavMeshAgent of the Enemy
+     */
     public UnityEngine.AI.NavMeshAgent GetNav() {
         return Nav;
     }
 
+    /**
+     * Move towards closest player
+     */
     public virtual void Move() {
         GameObject ClosestPlayer = GetClosestPlayer();
         if (ClosestPlayer != null) {
             Nav.SetDestination (ClosestPlayer.transform.position);
         } else {
             Nav.enabled = false;
+            if (EnemyAnimator != null) {
+                EnemyAnimator.SetTrigger("Idle");
+            }
+            DisableMove();
         }
     }
 
+    /**
+     * Enables movement of Enemy
+     */
+    public void EnableMove() {
+        CanMove = true;
+    }
+
+    /**
+     * Disables movement of Enemy
+     */
+    public void DisableMove() {
+        if (Nav.hasPath) {
+            Nav.ResetPath();
+        }
+        CanMove = false;
+    }
+
+    /**
+     * Returns true if Enemy is alive, false otherwise
+     */
     public bool IsAlive() {
         return EnemyHealth.currentHealth > 0;
     }
