@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour {
+    private float MovementSpeed = 3.5f;
     private bool CanMove = true;
     private GameObject[] Players;
     private PlayerHealth[] PlayerHealths;
@@ -22,6 +23,7 @@ public class EnemyMovement : MonoBehaviour {
         
         EnemyHealth = GetComponent<EnemyHealth>();
         Nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        MovementSpeed = Nav.speed;
     }
 
     void Update() {
@@ -71,6 +73,13 @@ public class EnemyMovement : MonoBehaviour {
             Nav.ResetPath();
         }
         CanMove = false;
+    }
+
+    /**
+     * Update the movement speedd of Enemy
+     */
+    public void UpdateSpeed(float NewSpeed) {
+        Nav.speed = NewSpeed;
     }
 
     /**
