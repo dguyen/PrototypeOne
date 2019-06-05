@@ -4,16 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerInteract : MonoBehaviour, IAction {
+    [HideInInspector] public int playerControlScheme = 1;
+    [HideInInspector] public PlayerDetails playerDetails;
+    
     public float interactRadius = 2f;
-
-    [Tooltip("How long the interaction takes")]
-    public float interactTime = 0.5f;
     public Slider interactSlider;
     public float sliderXOffset = 45f;
     public float sliderYOffset = 80f;
-
-    [HideInInspector] public int playerControlScheme = 1;
-    [HideInInspector] public PlayerDetails playerDetails;
 
     private Camera m_Camera;
     private Animator sliderAnimator;
@@ -28,9 +25,9 @@ public class PlayerInteract : MonoBehaviour, IAction {
         if (playerDetails != null) {
             playerControlScheme = playerDetails.PlayerControlScheme;
             interactSlider = playerDetails.PlayerUI.InteractSlider;
-            SetupSlider();
-        } else if (interactSlider != null) {
-            SetupSlider();
+        }
+        if (interactSlider != null) {
+            sliderAnimator = interactSlider.GetComponent<Animator>();
         }
     }
 
@@ -38,8 +35,9 @@ public class PlayerInteract : MonoBehaviour, IAction {
         UpdateSliderPosition();
         if (Input.GetButton("Interact_P" + playerControlScheme) && CanDo() && !hasActed) {
             if (timer == 0f) {
+                SetupSlider();
                 DisplaySlider(true);
-            } else if (timer >= interactTime) {
+            } else if (timer >= tmpInteractable.GetInteractDuration()) {
                 hasActed = true;
                 Act();
                 timer = 0f;
@@ -51,14 +49,17 @@ public class PlayerInteract : MonoBehaviour, IAction {
             timer = 0f;
             hasActed = false;
             UpdateSlider();
-            DisplaySlider(false);
+            if (tmpInteractable != null) {
+                DisplaySlider(false);
+            }
         }
     }
 
     private void SetupSlider() {
-        interactSlider.maxValue = interactTime;
+        if (tmpInteractable != null) {
+            interactSlider.maxValue = tmpInteractable.GetInteractDuration();
+        }
         interactSlider.value = 0;
-        sliderAnimator = interactSlider.GetComponent<Animator>();
     }
 
     private void UpdateSlider() {
@@ -66,7 +67,7 @@ public class PlayerInteract : MonoBehaviour, IAction {
     }
 
     private void DisplaySlider(bool Show) {
-        if (interactTime <= 0f || interactSlider == null || sliderVisible == Show) {
+        if (interactSlider == null || sliderVisible == Show) {
             return;
         }
         sliderVisible = Show;  
@@ -92,7 +93,7 @@ public class PlayerInteract : MonoBehaviour, IAction {
             IInteractable foundInteractable = colliders[i].GetComponent<IInteractable>();
             if (foundInteractable != null) {
                 float sqrDistanceToCenter = (transform.position - colliders[i].transform.position).sqrMagnitude;
-                if (sqrDistanceToCenter < minSqrDistance) {
+                if (sqrDistanceToCenter < minSqrDistance && foundInteractable.CanInteract(gameObject)) {
                     minSqrDistance = sqrDistanceToCenter;
                     closestInteractable = foundInteractable;
                 }
