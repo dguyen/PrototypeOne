@@ -7,7 +7,6 @@ public class Bow : RangedWeapon {
     public Transform ArrowSpawn;
     public Rigidbody Arrow;
     public float ArrowSpeed;
-    public Slider ChargeSlider;
     public float MinLaunchForce = 15f;
     public float MaxLaunchForce = 30f;
     public float MaxChargeTime = 0.75f;
@@ -18,24 +17,7 @@ public class Bow : RangedWeapon {
 
     public override void Start() {
         base.Start();
-        ChargeSlider = GameObject.Find("ChargeSlider").GetComponent<Slider>(); // Todo: Remove
         ChargeSpeed = (MaxLaunchForce - MinLaunchForce) / MaxChargeTime;
-        ChargeSlider.maxValue = MaxLaunchForce;
-        ChargeSlider.minValue = MinLaunchForce;
-    }
-
-    public override void OnEnable() {
-        base.OnEnable();
-        if (ChargeSlider) {
-            ChargeSlider.gameObject.SetActive(true);
-        }
-    }
-
-    public override void OnDisable() {
-        base.OnDisable();
-        if (ChargeSlider) {
-            ChargeSlider.gameObject.SetActive(false);
-        }
     }
 
     public override void WeaponActive() {
@@ -49,7 +31,6 @@ public class Bow : RangedWeapon {
                 newLaunchForce = MaxLaunchForce;
             }
             CurrentLaunchForce = newLaunchForce;
-            ChargeSlider.value = CurrentLaunchForce;
 
         } else if (Input.GetButtonUp("Fire1_P" + playerControlScheme) && !Fired) {
             Fire();
@@ -68,7 +49,6 @@ public class Bow : RangedWeapon {
         arrowRigidbody.velocity = ArrowSpawn.forward * CurrentLaunchForce;
 
         CurrentLaunchForce = MinLaunchForce;
-        ChargeSlider.value = MinLaunchForce;
         DecreaseAmmo(1);
     }
 }

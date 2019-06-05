@@ -311,6 +311,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &312170486 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4326503963858749454, guid: ae9b551f14a1a024780c710abe80d452,
+    type: 3}
+  m_PrefabInstance: {fileID: 1227354881}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &336748303 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3793732958264539002, guid: ae9b551f14a1a024780c710abe80d452,
@@ -1268,6 +1280,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8247868287208879313, guid: af478c9a71170c342982f175b7a4cc0c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6249639016232928316, guid: af478c9a71170c342982f175b7a4cc0c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1306,7 +1323,7 @@ PrefabInstance:
     - target: {fileID: 6249639016232928316, guid: af478c9a71170c342982f175b7a4cc0c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6249639016232928316, guid: af478c9a71170c342982f175b7a4cc0c,
         type: 3}
@@ -1347,6 +1364,18 @@ PrefabInstance:
       propertyPath: moneyText
       value: 
       objectReference: {fileID: 22804474}
+    - target: {fileID: 869725222, guid: af478c9a71170c342982f175b7a4cc0c, type: 3}
+      propertyPath: interactSlider
+      value: 
+      objectReference: {fileID: 312170486}
+    - target: {fileID: 869725222, guid: af478c9a71170c342982f175b7a4cc0c, type: 3}
+      propertyPath: sliderXOffset
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 869725222, guid: af478c9a71170c342982f175b7a4cc0c, type: 3}
+      propertyPath: sliderYOffset
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af478c9a71170c342982f175b7a4cc0c, type: 3}
 --- !u!1 &1035897474
@@ -1709,31 +1738,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 8251871681498637352, guid: ae9b551f14a1a024780c710abe80d452,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251871681498637352, guid: ae9b551f14a1a024780c710abe80d452,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251871681498637352, guid: ae9b551f14a1a024780c710abe80d452,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8251871681498637352, guid: ae9b551f14a1a024780c710abe80d452,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3793732959260889679, guid: ae9b551f14a1a024780c710abe80d452,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3793732960002537774, guid: ae9b551f14a1a024780c710abe80d452,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1750,6 +1754,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3793732959823088295, guid: ae9b551f14a1a024780c710abe80d452,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4326503963580316425, guid: ae9b551f14a1a024780c710abe80d452,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4326503963580316425, guid: ae9b551f14a1a024780c710abe80d452,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1878,7 +1892,7 @@ Transform:
   m_Children:
   - {fileID: 1671039172}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1286214860
 GameObject:

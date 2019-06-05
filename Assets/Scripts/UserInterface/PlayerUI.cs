@@ -7,7 +7,7 @@ public class PlayerUI: MonoBehaviour {
     public int PlayerNumber;
     public Slider HealthSlider;
     public Slider StaminaSlider;
-    public Slider ChargeSlider;
+    public Slider InteractSlider;
     public Text MoneyText;
     public Text AmmoCountText;
     public InventoryUI InventoryUI;
