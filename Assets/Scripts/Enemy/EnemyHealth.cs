@@ -11,6 +11,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
     private Animator animator;
     private bool isDead;
     private bool isSinking = false;
+    private bool CanDamage = true;
 
     void Awake() {
         animator = GetComponent <Animator> ();
@@ -25,7 +26,7 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
     }
 
     public void TakeDamage(int damage) {
-        if (isDead) {
+        if (isDead || !CanDamage) {
             return;
         }
 
@@ -33,8 +34,11 @@ public class EnemyHealth : MonoBehaviour, IDamagable {
         if (currentHealth <= 0) {
             Death();
         }
-
         //Todo Damage particles
+    }
+
+    public void CanTakeDamage(bool CanBeDamaged) {
+        CanDamage = CanBeDamaged;
     }
 
     void Death() {

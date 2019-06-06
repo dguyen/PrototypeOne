@@ -162,6 +162,7 @@ MonoBehaviour:
   BuyPrice: 300
   RefillPrice: 150
   PIndicator: {fileID: 0}
+  InteractDuration: 0.4
 --- !u!65 &259673356
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1738,6 +1739,26 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 8251871681498637352, guid: ae9b551f14a1a024780c710abe80d452,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251871681498637352, guid: ae9b551f14a1a024780c710abe80d452,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251871681498637352, guid: ae9b551f14a1a024780c710abe80d452,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251871681498637352, guid: ae9b551f14a1a024780c710abe80d452,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3793732960002537774, guid: ae9b551f14a1a024780c710abe80d452,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1807,6 +1828,7 @@ MonoBehaviour:
   BuyPrice: 300
   RefillPrice: 150
   PIndicator: {fileID: 0}
+  InteractDuration: 0.4
 --- !u!65 &1256599006
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2617,6 +2639,7 @@ MonoBehaviour:
   BuyPrice: 300
   RefillPrice: 150
   PIndicator: {fileID: 0}
+  InteractDuration: 0.4
 --- !u!65 &1687514277
 BoxCollider:
   m_ObjectHideFlags: 0

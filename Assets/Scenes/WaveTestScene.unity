@@ -491,6 +491,7 @@ MonoBehaviour:
   AreaToOpen: {fileID: 1338514738}
   CostToOpen: 1000
   PIndicator: {fileID: 3756929905348994001}
+  InteractDuration: 0.5
 --- !u!1 &23822415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,6 +1080,9 @@ MonoBehaviour:
   - enemy: {fileID: 4042996404262707138, guid: 0ec00bab56287a74da07e6ab43ca559e, type: 3}
     enemyType: 1
     minWaveSpawn: 5
+  - enemy: {fileID: 8045340814938563120, guid: 7d503b996c2c49f43bf04a18307cb044, type: 3}
+    enemyType: 0
+    minWaveSpawn: 6
   areas:
   - {fileID: 934021591}
   - {fileID: 1338514738}
