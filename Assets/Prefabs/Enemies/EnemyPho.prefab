@@ -1550,7 +1550,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a55b3a122e1b34842a499adda33d09f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackDelay: 1.5
+  AttackDelay: 1.25
+  AtkSpeedMultiplier: 1.5
   AttackDamage: 40
   AttackRange: 8.5
   Projectible: {fileID: 5702092872234863510, guid: 07783059eda6e54448f408526c7cfdf1,

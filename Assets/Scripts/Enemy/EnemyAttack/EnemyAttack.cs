@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour {
     public float AttackDelay = 0.5f;
+    public float AtkSpeedMultiplier = 1f;
     public int AttackDamage = 30;
     public float AttackRange = 1f;
 
@@ -11,6 +12,7 @@ public class EnemyAttack : MonoBehaviour {
     private Animator EnemyAnimator;
     private PlayerHealth[] PlayerHealths;
     private EnemyHealth EnemyHealth;
+    private bool IsAttacking = false;
     private float Timer;
 
     void Awake() {
@@ -18,7 +20,7 @@ public class EnemyAttack : MonoBehaviour {
         PlayerHealths = new PlayerHealth[Players.Length];
         EnemyAnimator = GetComponent<Animator>();
         EnemyHealth = GetComponent<EnemyHealth>();
-
+        UpdateAtkSpeed(AtkSpeedMultiplier);
         for (int i = 0; i < Players.Length; i++) {
             PlayerHealths[i] = Players[i].GetComponent<PlayerHealth>();
         }
@@ -27,12 +29,9 @@ public class EnemyAttack : MonoBehaviour {
     void Update() {
         Timer += Time.deltaTime;
         GameObject ClosestPlayer = GetClosestPlayer();
-        if (Timer >= AttackDelay && PlayerInRange(ClosestPlayer) && EnemyHealth.currentHealth > 0) {
-            Attack(ClosestPlayer);
-            Timer = 0f;
-            if (EnemyAnimator != null) {
-                EnemyAnimator.SetTrigger("Attack");
-            }
+        if (Timer >= AttackDelay && PlayerInRange(ClosestPlayer) && EnemyHealth.currentHealth > 0 && !IsAttacking) {
+            IsAttacking = true;
+            EnemyAnimator.SetTrigger("Attack");
         }
     }
 
@@ -48,13 +47,31 @@ public class EnemyAttack : MonoBehaviour {
     }
 
     /**
-     * Attack the given player
+     * Attack the closest player if exists
      */
-    public virtual void Attack(GameObject player) {
-        PlayerHealth PHealth = GetPlayerHealth(player);
-        if (PHealth != null) {
-            PHealth.TakeDamage(AttackDamage);
+    public virtual void Attack() {
+        GameObject ClosestPlayer = GetClosestPlayer();
+        if (PlayerInRange(ClosestPlayer) && EnemyHealth.currentHealth > 0) {
+            PlayerHealth PHealth = GetPlayerHealth(ClosestPlayer);
+            if (PHealth != null) {
+                PHealth.TakeDamage(AttackDamage);
+            } 
         }
+    }
+
+    /**
+     * Call this when attack animation ends
+     */
+    public void AttackEnd() {
+        Timer = 0f;
+        IsAttacking = false;
+    }
+
+    /**
+     * Update the Enemy attack animation speed
+     */
+    public void UpdateAtkSpeed(float Multiplier) {
+        EnemyAnimator.SetFloat("AttackSpeed" , Multiplier);
     }
 
     /**
