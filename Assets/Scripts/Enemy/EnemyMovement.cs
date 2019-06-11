@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour {
+    private float MovementSpeed = 3.5f;
+    private bool CanMove = true;
     private GameObject[] Players;
     private PlayerHealth[] PlayerHealths;
     private PlayerHealth PlayerHealth;
     private EnemyHealth EnemyHealth;
+    private Animator EnemyAnimator;
     private UnityEngine.AI.NavMeshAgent Nav;
     
     void Awake() {
         Players = GameObject.FindGameObjectsWithTag("Player");
+        EnemyAnimator = GetComponent<Animator>();
         PlayerHealths = new PlayerHealth[Players.Length];
 
         for (int i = 0; i < Players.Length; i++) {
@@ -19,26 +23,76 @@ public class EnemyMovement : MonoBehaviour {
         
         EnemyHealth = GetComponent<EnemyHealth>();
         Nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        MovementSpeed = Nav.speed;
     }
 
     void Update() {
-        if (EnemyHealth.currentHealth <= 0) {
+        if (!IsAlive()) {
             Nav.enabled = false;
             return;
+        } else if (CanMove) {
+            Move();
         }
+    }
 
+    /**
+     * Returns the NavMeshAgent of the Enemy
+     */
+    public UnityEngine.AI.NavMeshAgent GetNav() {
+        return Nav;
+    }
+
+    /**
+     * Move towards closest player
+     */
+    public virtual void Move() {
         GameObject ClosestPlayer = GetClosestPlayer();
         if (ClosestPlayer != null) {
             Nav.SetDestination (ClosestPlayer.transform.position);
         } else {
             Nav.enabled = false;
+            if (EnemyAnimator != null) {
+                EnemyAnimator.SetTrigger("Idle");
+            }
+            DisableMove();
         }
+    }
+
+    /**
+     * Enables movement of Enemy
+     */
+    public void EnableMove() {
+        CanMove = true;
+    }
+
+    /**
+     * Disables movement of Enemy
+     */
+    public void DisableMove() {
+        if (Nav.hasPath) {
+            Nav.ResetPath();
+        }
+        CanMove = false;
+    }
+
+    /**
+     * Update the movement speedd of Enemy
+     */
+    public void UpdateSpeed(float NewSpeed) {
+        Nav.speed = NewSpeed;
+    }
+
+    /**
+     * Returns true if Enemy is alive, false otherwise
+     */
+    public bool IsAlive() {
+        return EnemyHealth.currentHealth > 0;
     }
 
     /**
      * Returns the closest alive player GameObject
      */
-    GameObject GetClosestPlayer() {
+    public GameObject GetClosestPlayer() {
         GameObject ClosestPlayer = null;
         float ClosestDistanceSqr = Mathf.Infinity;
         Vector3 CurrentPosition = transform.position;

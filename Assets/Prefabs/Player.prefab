@@ -30,6 +30,36 @@ Transform:
   m_Father: {fileID: 6249639016232928316}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1587894439
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1587894440}
+  m_Layer: 9
+  m_Name: FiringHeight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1587894440
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587894439}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6249639016232928316}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &58246496653279189
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,6 +175,7 @@ Transform:
   - {fileID: 1482928445}
   - {fileID: 4698833550089846153}
   - {fileID: 6473578896725348050}
+  - {fileID: 1587894440}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -209,6 +240,9 @@ MonoBehaviour:
   staminaLength: 3
   staminaRecoverySpeed: 1
   staminaDepletionSpeed: 1.5
+  crosshair: {fileID: 0}
+  crosshairDistance: 2.5
+  firingHeight: {fileID: 1587894440}
 --- !u!114 &269953889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,13 +255,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c598837faf7bbdc42a488e08dfd47113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 100
-  currentHealth: 0
-  healthSlider: {fileID: 0}
-  damageImage: {fileID: 0}
-  flashSpeed: 5
-  flashColour: {r: 1, g: 0, b: 0, a: 0.1}
   playerDetails: {fileID: 0}
+  currentHealth: 0
+  startingHealth: 100
+  healthSlider: {fileID: 0}
+  CanRevive: 1
 --- !u!114 &69096937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,9 +305,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ac265d8dceaae46bcca55bb70e35f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactRadius: 1
   playerControlScheme: 1
   playerDetails: {fileID: 0}
+  interactRadius: 1.5
+  interactSlider: {fileID: 0}
+  sliderXOffset: 45
+  sliderYOffset: 80
 --- !u!1 &8290756651783905194
 GameObject:
   m_ObjectHideFlags: 0

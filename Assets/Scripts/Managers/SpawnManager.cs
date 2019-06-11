@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour {
     public int minimumSpawnAmount = 5;
-    public GameObject spawnArea;
     public EnemySpawn[] enemies;
     public Area[] areas;
 

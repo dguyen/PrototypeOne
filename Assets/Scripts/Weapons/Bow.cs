@@ -7,7 +7,6 @@ public class Bow : RangedWeapon {
     public Transform ArrowSpawn;
     public Rigidbody Arrow;
     public float ArrowSpeed;
-    public Slider ChargeSlider;
     public float MinLaunchForce = 15f;
     public float MaxLaunchForce = 30f;
     public float MaxChargeTime = 0.75f;
@@ -18,24 +17,7 @@ public class Bow : RangedWeapon {
 
     public override void Start() {
         base.Start();
-        ChargeSlider = GameObject.Find("ChargeSlider").GetComponent<Slider>(); // Todo: Remove
         ChargeSpeed = (MaxLaunchForce - MinLaunchForce) / MaxChargeTime;
-        ChargeSlider.maxValue = MaxLaunchForce;
-        ChargeSlider.minValue = MinLaunchForce;
-    }
-
-    public override void OnEnable() {
-        base.OnEnable();
-        if (ChargeSlider) {
-            ChargeSlider.gameObject.SetActive(true);
-        }
-    }
-
-    public override void OnDisable() {
-        base.OnDisable();
-        if (ChargeSlider) {
-            ChargeSlider.gameObject.SetActive(false);
-        }
     }
 
     public override void WeaponActive() {
@@ -49,7 +31,6 @@ public class Bow : RangedWeapon {
                 newLaunchForce = MaxLaunchForce;
             }
             CurrentLaunchForce = newLaunchForce;
-            ChargeSlider.value = CurrentLaunchForce;
 
         } else if (Input.GetButtonUp("Fire1_P" + playerControlScheme) && !Fired) {
             Fire();
@@ -61,14 +42,13 @@ public class Bow : RangedWeapon {
 
         Rigidbody arrowRigidbody = Instantiate(Arrow, ArrowSpawn.position, ArrowSpawn.rotation) as Rigidbody;
         Arrow newArrow = arrowRigidbody.gameObject.GetComponent<Arrow>();
-        newArrow.moneyPerHit = pointsPerHit;
-        newArrow.playerMoney = playerMoney;
+        newArrow.MoneyPerHit = pointsPerHit;
+        newArrow.PlayerMoney = playerMoney;
         float damageMultiplier = ((CurrentLaunchForce - MinLaunchForce) / 10) + 1;
-        newArrow.perArrowDamage = Mathf.RoundToInt(newArrow.perArrowDamage * damageMultiplier);
+        newArrow.Damage = Mathf.RoundToInt(newArrow.Damage * damageMultiplier);
         arrowRigidbody.velocity = ArrowSpawn.forward * CurrentLaunchForce;
 
         CurrentLaunchForce = MinLaunchForce;
-        ChargeSlider.value = MinLaunchForce;
         DecreaseAmmo(1);
     }
 }

@@ -286,7 +286,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackDelay: 0.5
-  AttackDamage: 15
+  AtkSpeedMultiplier: 2
+  AttackDamage: 20
+  AttackRange: 1
 --- !u!1 &8247845191225857533
 GameObject:
   m_ObjectHideFlags: 0

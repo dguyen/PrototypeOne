@@ -7,6 +7,7 @@ public class BuyRefillInteraction : MonoBehaviour, IInteractable {
     public int BuyPrice;
     public int RefillPrice;
     public Indicator PIndicator;
+    public float InteractDuration = 0.4f;
 
     private IEntity Entity;
 
@@ -24,33 +25,54 @@ public class BuyRefillInteraction : MonoBehaviour, IInteractable {
     }
 
     public void Interact(GameObject Player) {
-        Inventory PlayerInventory = Player.GetComponent<Inventory>();
-        PlayerMoney PlayerMoney = Player.GetComponent<PlayerMoney>();
-        IEntity FoundPlayerItem = PlayerInventory.GetItemEntity(Entity.GetName());
+        if (CanInteract(Player)) {
+            Inventory PInventory = Player.GetComponent<Inventory>();
+            PlayerMoney PMoney = Player.GetComponent<PlayerMoney>();
+            IEntity FoundPlayerItem = PInventory.GetItemEntity(Entity.GetName());
 
-        if(FoundPlayerItem != null) {
-            if (FoundPlayerItem.HasCapability(Capability.REFILLABLE)) {
+            if (FoundPlayerItem != null && FoundPlayerItem.HasCapability(Capability.REFILLABLE)) {
                 RangedWeapon tmpCast = (RangedWeapon)FoundPlayerItem;
-                if (tmpCast.ammoCapacity == tmpCast.GetAmmoCount()) {
-                    // Todo: Inform player "Ammo is already full"
-                    // Flash ammo UI?
-                } else if (PlayerMoney.GetPlayerMoney() >= RefillPrice) {
-                    // Todo: Indicate to player that ammo has been refilled
-                    // Flash ammo UI?
-                    tmpCast.RefillAmmo();
-                    PlayerMoney.DecreaseMoney(RefillPrice);
-                } else {
-                    // Todo: Inform player "Funds lacking"
-                    // Flash money red? or indicator red?
-                }
+                tmpCast.RefillAmmo();
+                // Todo: Indicate to player that ammo has been refilled
+                // Flash ammo UI?
+            } else {
+                PInventory.AddItem(Instantiate(Item, transform.position, Quaternion.identity));
+                PMoney.DecreaseMoney(BuyPrice);
+                // Todo: Indicate to player that item has been purchased
             }
-        } else if(PlayerMoney.GetPlayerMoney() < BuyPrice) {
+        }
+    }
+
+    public float GetInteractDuration() {
+        return InteractDuration;
+    }
+
+    public bool CanInteract(GameObject Player) {
+        Inventory PInventory = Player.GetComponent<Inventory>();
+        PlayerMoney PMoney = Player.GetComponent<PlayerMoney>();
+        IEntity FoundPlayerItem = PInventory.GetItemEntity(Entity.GetName());
+
+        if (FoundPlayerItem != null && FoundPlayerItem.HasCapability(Capability.REFILLABLE)) {
+            RangedWeapon tmpCast = (RangedWeapon)FoundPlayerItem;
+            if (tmpCast.ammoCapacity == tmpCast.GetAmmoCount()) {
+                // Todo: Inform player "Ammo is already full"
+                // Flash ammo UI?
+                return false;
+            } else if (PMoney.GetPlayerMoney() >= RefillPrice) {
+                // Player has enough money and can refill
+                return true;
+            } else {
+                // Todo: Inform player "Funds lacking"
+                // Flash money red? or indicator red?
+                return false;
+            }
+        } else if(PMoney.GetPlayerMoney() < BuyPrice) {
             // Todo: Inform player "Funds lacking"
             // Flash money red? or indicator red?
+            return false;
         } else {
-            // Todo: Indicate to player that item has been purchased
-            PlayerInventory.AddItem(Instantiate(Item, transform.position, Quaternion.identity));
-            PlayerMoney.DecreaseMoney(BuyPrice);
+            // Player has enough money and can purchase Entity
+            return true;
         }
     }
 }
