@@ -612,6 +612,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 439910900}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &440490994 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1079317859, guid: ae9b551f14a1a024780c710abe80d452,
+    type: 3}
+  m_PrefabInstance: {fileID: 1227354881}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &440490997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440490994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1.1, y: -1.1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &466959579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,7 +1472,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1227354881}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 440490994}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -1633,6 +1654,23 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: OnePlayerUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079317861, guid: ae9b551f14a1a024780c710abe80d452, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4d6c1160b4de64843aa59d06424e26b5,
+        type: 3}
+    - target: {fileID: 1079317861, guid: ae9b551f14a1a024780c710abe80d452, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079317861, guid: ae9b551f14a1a024780c710abe80d452, type: 3}
+      propertyPath: m_Color.g
+      value: 0.60249305
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079317861, guid: ae9b551f14a1a024780c710abe80d452, type: 3}
+      propertyPath: m_Color.b
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1306996800664788973, guid: ae9b551f14a1a024780c710abe80d452,
         type: 3}
