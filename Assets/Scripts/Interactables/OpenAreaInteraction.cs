@@ -10,7 +10,7 @@ public class OpenAreaInteraction : MonoBehaviour, IInteractable {
 
     void Start() {
         if (PIndicator != null) {
-            PIndicator.IndicatorText.text = "$" + CostToOpen;
+            PIndicator.IndicatorText.text = CostToOpen.ToString();
         }
     }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class WaveManager : MonoBehaviour {
     [Tooltip("The delay before the initial wave starts")]       
@@ -14,10 +15,10 @@ public class WaveManager : MonoBehaviour {
     public float gameOverDelay = 1f;
 
     [Tooltip("Text to indicate the current wave")]   
-    public Text waveText;
+    public TextMeshProUGUI waveText;
 
     [Tooltip("Text to indicate the current wave")]   
-    public Text gameOverText;
+    public TextMeshProUGUI gameOverText;
 
     [HideInInspector]
     public PlayerManager[] players;
@@ -63,7 +64,7 @@ public class WaveManager : MonoBehaviour {
 
     IEnumerator WaveStarting() {
         currentWave++;
-        waveText.text = "Wave " + currentWave;
+        waveText.text = "WAVE " + currentWave;
         yield return null;
     }
 
@@ -90,7 +91,7 @@ public class WaveManager : MonoBehaviour {
 
     string GameOverMessage() {
         string message = "GAME OVER\n";
-        return message + "<color=#" + ColorUtility.ToHtmlStringRGB(new Color32(225, 123, 112, 225)) + "><size=20>Wave: " + currentWave + "</size></color>";
+        return message + "<color=#" + ColorUtility.ToHtmlStringRGB(new Color32(225, 123, 112, 225)) + "><size=20>WAVE: " + currentWave + "</size></color>";
     }
 
     /**

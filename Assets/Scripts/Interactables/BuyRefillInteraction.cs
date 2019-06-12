@@ -17,7 +17,7 @@ public class BuyRefillInteraction : MonoBehaviour, IInteractable {
             Debug.LogError("GameObject Item must have an IEntity type script");
         }
         if (PIndicator != null) {
-            PIndicator.IndicatorText.text = "$" + BuyPrice.ToString() + "/" + RefillPrice.ToString();
+            PIndicator.IndicatorText.text = BuyPrice.ToString() + "/" + RefillPrice.ToString();
             if (Entity.GetSprite() != null) {
                 PIndicator.SpriteImage.sprite = Entity.GetSprite();
             }

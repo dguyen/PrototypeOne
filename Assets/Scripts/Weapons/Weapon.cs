@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Weapon : Entity {
     public int pointsPerHit;
     public int damagePerHit;
     public float attackDelay;
     [HideInInspector] public PlayerMoney playerMoney;
-    [HideInInspector] public Text ammoCountText;
+    [HideInInspector] public TextMeshProUGUI ammoCountText;
     [HideInInspector] public Inventory inventory;
 
     public virtual void Start() {

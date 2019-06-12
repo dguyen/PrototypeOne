@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Indicator : MonoBehaviour {
     public Animator IndicatorAC;
-    public Text IndicatorText;
+    public TextMeshProUGUI IndicatorText;
     public Image SpriteImage;
 
     private int NumViewers = 0;

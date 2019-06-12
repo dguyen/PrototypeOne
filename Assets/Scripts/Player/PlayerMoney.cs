@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerMoney : MonoBehaviour {
     public int initialPlayerMoney = 500;
-    public Text moneyText;
+    public TextMeshProUGUI moneyText;
     [HideInInspector] public PlayerDetails playerDetails;
 
     private int playerMoney = 0;
