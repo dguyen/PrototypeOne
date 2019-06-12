@@ -16,8 +16,8 @@ public class SingleFireWeapon : RangedWeapon {
 
     void Awake() {
         shootableMask = LayerMask.GetMask("Shootable");
-        gunLine = GetComponent<LineRenderer>();
-        gunLight = GetComponent<Light>();
+        gunLine = GetComponentInChildren<LineRenderer>();
+        gunLight = GetComponentInChildren<Light>();
         if (attackDelay < effectsDisplayTime) {
             effectsDisplayTime = attackDelay;
         }

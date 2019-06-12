@@ -8,6 +8,9 @@ public class PlayerMovement : MonoBehaviour, IAction {
     [Tooltip("How fast the player moves")]
     public float speed = 6f;
  
+    public bool canMove = true;
+    public bool canSprint = true;
+
     [Tooltip("Slider to indicate stamina value")]   
     public Slider staminaSlider;
 
@@ -57,15 +60,19 @@ public class PlayerMovement : MonoBehaviour, IAction {
         float v = Input.GetAxisRaw("Vertical_P" + playerControlScheme);
 
         Turning();
-        Move(h, v);
-        Sprinting();
+        if (canMove) {
+            Move(h, v);
+        }
+        if (canSprint) {
+            Sprinting();
+        }
     }
 
     void Move(float h, float v) {
         float newSpeed = speed;
         Vector3 movement = new Vector3(h, 0.0f, v);
 
-        if (isSprinting() && currentStamina > 0) {
+        if (canSprint && isSprinting() && currentStamina > 0) {
             newSpeed *= staminaSpeedMultiplier;
             DepleteStamina();
         }
