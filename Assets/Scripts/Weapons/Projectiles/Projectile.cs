@@ -1,14 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Projectile : MonoBehaviour {
-    public GameObject Target;
-    public int Damage = 30;
-    public float Speed = 5f;
     public ParticleSystem HitParticleSystem;
+    public int Damage = 30;
 
-    private bool fired = false;
+    [HideInInspector]
+    public int MoneyPerHit = 5;
+
+    [HideInInspector]
+    public PlayerMoney PlayerMoney;
+
+    private float Speed;
+    private GameObject Target;
+    private bool Fired = false;
+    private bool FollowTarget = false;
     private Rigidbody Rb;
 
     void Awake() {
@@ -17,21 +22,24 @@ public class Projectile : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if (fired) {
-            MoveProjectile();
+        if (Fired && FollowTarget) {
+            ChaseTarget();
         }
     }
 
     /**
      * Move projectile per frame
      */
-    public virtual void MoveProjectile() {
+    public virtual void ChaseTarget() {
         Vector3 NewPos = Vector3.MoveTowards(gameObject.transform.position, Target.transform.position, Speed * Time.deltaTime);
         NewPos.y = transform.position.y;
         gameObject.transform.position = NewPos;
     }
 
     void OnCollisionEnter(Collision other) {
+        if (PlayerMoney != null && other.gameObject.CompareTag("Player")) {
+            return;
+        }
         Hit(other.gameObject);
     }
 
@@ -41,6 +49,9 @@ public class Projectile : MonoBehaviour {
     public virtual void Hit(GameObject other) {
         IDamagable Damagable = other.gameObject.GetComponent<IDamagable>();
         if (Damagable != null) {
+            if (Damagable is EnemyHealth && PlayerMoney != null) {
+                PlayerMoney.IncreaseMoney(MoneyPerHit);
+            }
             Damagable.TakeDamage(Damage);
         }
         ReattachParticle(other);
@@ -75,9 +86,26 @@ public class Projectile : MonoBehaviour {
     }
 
     /**
-     * Fire the projectile
+     * Fire the projectile at a target
      */
-    public virtual void Fire() {
-        fired = true;
+    public virtual void Fire(float speed, GameObject target) {
+        if (Fired) {
+            return;
+        }
+        Speed = speed;
+        Target = target;
+        FollowTarget = true;
+        Fired = true;
+    }
+
+    /**
+     * Fire the projectile in a straight line
+     */
+    public virtual void Fire(float speed) {
+        if (Fired) {
+            return;
+        }
+        Fired = true;
+        Rb.AddForce(transform.forward * speed);
     }
 }

@@ -1556,7 +1556,9 @@ MonoBehaviour:
   AttackRange: 8.5
   Projectible: {fileID: 5702092872234863510, guid: 07783059eda6e54448f408526c7cfdf1,
     type: 3}
+  AttackFollowTarget: 1
   AttackSpawn: {fileID: 4042996404874109941}
+  AttackSpeed: 5
 --- !u!114 &4042996404262707136
 MonoBehaviour:
   m_ObjectHideFlags: 0

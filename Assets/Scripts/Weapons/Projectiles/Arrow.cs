@@ -1,11 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Arrow : Projectile {
-    public int MoneyPerHit;
-    [HideInInspector] public PlayerMoney PlayerMoney;
-
     private Rigidbody ArrowRb;
 
     void Awake() {
@@ -24,7 +19,7 @@ public class Arrow : Projectile {
             return;
         }
         IDamagable Damagable = other.gameObject.GetComponent<IDamagable>();
-        if (Damagable != null) {
+        if (Damagable != null && !(Damagable is PlayerHealth)) {
             Damagable.TakeDamage(Damage);
             PlayerMoney.IncreaseMoney(MoneyPerHit);
         }
