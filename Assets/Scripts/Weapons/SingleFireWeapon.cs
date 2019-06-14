@@ -1,34 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SingleFireWeapon : RangedWeapon {
     public Transform gunPoint;
     public ParticleSystem gunParticles;
-    public float effectsDisplayTime = 0.1f;
+    public Projectile projectile;
+    public float projectileSpeed = 1000;
 
     private float timer;
-    private Ray shootRay = new Ray();
-    private RaycastHit shootHit;
-    private int shootableMask;
-    private Light gunLight;
-    private LineRenderer gunLine;
-
-    void Awake() {
-        shootableMask = LayerMask.GetMask("Shootable");
-        gunLine = GetComponentInChildren<LineRenderer>();
-        gunLight = GetComponentInChildren<Light>();
-        if (attackDelay < effectsDisplayTime) {
-            effectsDisplayTime = attackDelay;
-        }
-    }
 
     public override void Update() {
         base.Update();
         timer += Time.deltaTime;
-        if(timer >= effectsDisplayTime) {
-            DisableEffects();
-        }
     }
 
     public override void WeaponActive() {
@@ -41,33 +23,16 @@ public class SingleFireWeapon : RangedWeapon {
         return timer >= attackDelay;
     }
 
-    public void DisableEffects () {
-        gunLine.enabled = false;
-        gunLight.enabled = false;
-    }
-
     public void Fire() {
         timer = 0f;
-        gunLight.enabled = true;
+
         gunParticles.Stop();
         gunParticles.Play();
 
-        gunLine.enabled = true;
-        gunLine.SetPosition(0, gunPoint.position);
-        
-        shootRay.origin = gunPoint.position;
-        shootRay.direction = gunPoint.forward;
-
-        if (Physics.Raycast(shootRay, out shootHit, range, shootableMask)) {
-            IDamagable damagable = shootHit.collider.GetComponent<IDamagable>();
-            if (damagable != null) {
-                damagable.TakeDamage(damagePerHit);
-                playerMoney.IncreaseMoney(pointsPerHit);
-            }
-            gunLine.SetPosition(1, shootHit.point);
-        } else {
-            gunLine.SetPosition(1, shootRay.origin + shootRay.direction * range);
-        }
+        Projectile newProjectile = Instantiate(projectile, gunPoint.transform.position, gunPoint.rotation) as Projectile;
+        newProjectile.PlayerMoney = playerMoney;
+        newProjectile.MoneyPerHit = pointsPerHit;
+        newProjectile.Fire(projectileSpeed);
         DecreaseAmmo(1);
     }
 }

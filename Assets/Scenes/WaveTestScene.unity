@@ -1147,10 +1147,6 @@ MonoBehaviour:
     m_ControlScheme: 0
     m_PlayerUI: {fileID: 0}
     m_PlayerGameObject: {fileID: 0}
-  - m_PlayerNumber: 0
-    m_ControlScheme: 0
-    m_PlayerUI: {fileID: 0}
-    m_PlayerGameObject: {fileID: 0}
   m_WaveManager: {fileID: 63719010}
   m_LocalMultiCamera: {fileID: 870377779}
   m_SinglePlayerCamera: {fileID: 870377780}

@@ -4987,6 +4987,9 @@ MonoBehaviour:
   gunPoint: {fileID: 1403221316}
   gunParticles: {fileID: 2032597073}
   effectsDisplayTime: 0.05
+  projectile: {fileID: 8472195361582494271, guid: e0adc40dc46582840a7321a83400f016,
+    type: 3}
+  projectileSpeed: 1000
 --- !u!1001 &1510275732010851174
 PrefabInstance:
   m_ObjectHideFlags: 0
