@@ -52,6 +52,11 @@ public class PlayerInteract : MonoBehaviour, IAction {
             if (tmpInteractable != null) {
                 DisplaySlider(false);
             }
+        } else if (sliderVisible) {
+            // Player has exited the Interact zone but is still holding down the Interact key
+            timer = 0f;
+            DisplaySlider(false);
+            UpdateSlider();
         }
     }
 
