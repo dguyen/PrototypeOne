@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class Inventory : MonoBehaviour {
     public const int numItemSlots = 3;
@@ -22,6 +19,11 @@ public class Inventory : MonoBehaviour {
             playerControlScheme = playerDetails.PlayerControlScheme;
             inventoryUI = playerDetails.PlayerUI.InventoryUI;
         }
+
+        if (numItemSlots != inventoryUI.inventoryImages.Length) {
+            Debug.LogError("InventoryUI images length is not equal to Inventory item length");
+        }
+
         if (startingItem != null) {
             AddItem(Instantiate(startingItem));
         } else {
@@ -48,6 +50,7 @@ public class Inventory : MonoBehaviour {
      * Select an item based on the given slot parameter
      */
     public void SelectItem(int newSelectedItem) {
+        // Check if item exists, if true deselect old selected item
         if (!ItemExists(newSelectedItem)) {
             return;
         } else if (storedObjects[selectedItem] != null) {
@@ -55,8 +58,9 @@ public class Inventory : MonoBehaviour {
         }
 
         selectedItem = newSelectedItem;
-        UpdateInventoryUI();
+        inventoryUI.SelectItem(selectedItem);
 
+        // Make new selected item active
         if (storedObjects[selectedItem] != null) {
             storedObjects[selectedItem].SetActive(true);
         }
@@ -101,7 +105,10 @@ public class Inventory : MonoBehaviour {
         IEntity entity = itemGameObject.GetComponent<IEntity>();
         if (entity == null) {
             return false;
+        } else if (GetItemCount() >= storedObjects.Length) {
+            RemoveItem(storedObjects[selectedItem]);
         }
+
         ((Entity)entity).playerControlScheme = playerControlScheme;
         ((Weapon)entity).playerMoney = playerMoney;
         ((Weapon)entity).ammoCountText = playerDetails.PlayerUI.AmmoCountText;
@@ -113,6 +120,7 @@ public class Inventory : MonoBehaviour {
                 itemGameObject.transform.parent = itemSpawn.transform;
                 itemGameObject.transform.localPosition = new Vector3();
                 itemGameObject.transform.rotation = new Quaternion();
+                inventoryUI.SetImage(entity.GetSprite(), i); // Update inventory sprite
                 SelectItem(i);
                 return true;
             }
@@ -131,11 +139,28 @@ public class Inventory : MonoBehaviour {
 
         for (int i = 0; i < storedObjects.Length; i++) {
             if (storedObjects[i] == objectToRemove) {
+                GameObject tmp = storedObjects[i];
                 storedObjects[i] = null;
+                tmp.SetActive(false);
+                Destroy(tmp);
+                inventoryUI.RemoveImage(i);
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Returns how many items the player currently has
+     */
+    public int GetItemCount() {
+        int counter = 0;
+        foreach (var item in storedObjects) {
+            if (item != null) {
+                counter++;
+            }            
+        }
+        return counter;
     }
 
     /**
@@ -161,26 +186,18 @@ public class Inventory : MonoBehaviour {
             if (tmpEntity != null && tmpEntity.GetName() == itemName) {
                 return tmpEntity;
             }           
-        }
+        } 
         return null;
     }
 
+    /**
+     * Returns the Entity of a GameObject in the given slot
+     */
     private IEntity GetEntity(int index) {
         GameObject tmpObject = storedObjects[index];
         if (tmpObject != null) {
             return tmpObject.GetComponent<IEntity>();
         }
         return null;
-    }
-
-    private void UpdateInventoryUI() {
-        if (storedObjects[selectedItem] == null) {
-            inventoryUI.RemoveImage();
-        } else {
-            Sprite sprite = storedObjects[selectedItem].GetComponent<IEntity>().GetSprite();
-            if (sprite != null) {
-                inventoryUI.SetImage(sprite);
-            }
-        }
     }
 }

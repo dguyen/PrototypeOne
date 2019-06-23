@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerInit : MonoBehaviour {
     public GameObject Player;
@@ -9,9 +7,11 @@ public class PlayerInit : MonoBehaviour {
 
     void Awake() {
         CameraFollow.SetupCamera();
-        PlayerDetails pDetails = Player.AddComponent<PlayerDetails>();
-        pDetails.PlayerControlScheme = PlayerDetails.PlayerControlScheme;
-        pDetails.PlayerNumber = PlayerDetails.PlayerNumber;
-        pDetails.PlayerUI = PlayerDetails.PlayerUI;
+        if (PlayerDetails != null) {
+            PlayerDetails pDetails = Player.AddComponent<PlayerDetails>();
+            pDetails.PlayerControlScheme = PlayerDetails.PlayerControlScheme;
+            pDetails.PlayerNumber = PlayerDetails.PlayerNumber;
+            pDetails.PlayerUI = PlayerDetails.PlayerUI;
+        }
     }
 }

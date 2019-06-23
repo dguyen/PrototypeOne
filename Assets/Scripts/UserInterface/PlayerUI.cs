@@ -7,7 +7,6 @@ using TMPro;
 public class PlayerUI: MonoBehaviour {
     public int PlayerNumber;
     public Slider HealthSlider;
-    public Slider StaminaSlider;
     public Slider InteractSlider;
     public TextMeshProUGUI MoneyText;
     public TextMeshProUGUI AmmoCountText;

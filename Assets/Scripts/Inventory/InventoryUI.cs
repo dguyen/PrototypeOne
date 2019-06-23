@@ -1,18 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour {
-    public Image InventoryImage;
+    public Image[] inventoryImages;
 
-    public void SetImage(Sprite newImage) {
-        InventoryImage.sprite = newImage;
-        InventoryImage.enabled = true;
+    [Tooltip("The amount to fade deselected items")]
+    public Color32 deselectOpacity = new Color(255, 255, 255, 150);
+
+    private int selectedImage = 0;
+    private Color32 fullColor = new Color(255, 255, 255, 255);
+    private Color32 noColor = new Color(255, 255, 255, 0);
+
+    /**
+     * Highlight the selected item
+     */
+    public void SelectItem(int position) {
+        inventoryImages[selectedImage].color = deselectOpacity;
+        inventoryImages[position].color = fullColor;
+        selectedImage = position;
     }
 
-    public void RemoveImage() {
-        InventoryImage.sprite = null;
-        InventoryImage.enabled = false;
+    /**
+     * Set the image of the item in the given position
+     */
+    public void SetImage(Sprite newImage, int position) {
+        inventoryImages[position].sprite = newImage;
+        inventoryImages[position].color = deselectOpacity;
+    }
+
+    /**
+     * Remove the image of the item in the given position
+     */
+    public void RemoveImage(int position) {
+        inventoryImages[position].color = noColor;
+        inventoryImages[position].sprite = null;
     }
 }
