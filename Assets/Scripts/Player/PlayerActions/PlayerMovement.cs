@@ -11,9 +11,6 @@ public class PlayerMovement : MonoBehaviour, IAction {
     public bool canMove = true;
     public bool canSprint = true;
 
-    [Tooltip("Slider to indicate stamina value")]   
-    public Slider staminaSlider;
-
     [Tooltip("How much extra speed the player gets")]   
     public float staminaSpeedMultiplier = 1.5f;
 
@@ -45,14 +42,10 @@ public class PlayerMovement : MonoBehaviour, IAction {
 
         if (playerDetails != null) {
             playerControlScheme = playerDetails.PlayerControlScheme;
-            staminaSlider = playerDetails.PlayerUI.StaminaSlider;
             crosshair = playerDetails.PlayerUI.CrosshairImage;
             UpdateCrosshair();
         }
-
-        staminaSlider.maxValue = staminaLength;
         currentStamina = staminaLength;
-        staminaSlider.value = currentStamina;
     }
 
     void FixedUpdate() {
@@ -126,14 +119,12 @@ public class PlayerMovement : MonoBehaviour, IAction {
     void RecoverStamina() {
         if (currentStamina <= staminaLength && !staminaDepleted) {
             currentStamina += Time.deltaTime * staminaRecoverySpeed;
-            staminaSlider.value = currentStamina;
         }
     }
 
     void DepleteStamina() {
         if (currentStamina >= 0) {
             currentStamina -= Time.deltaTime * staminaDepletionSpeed;
-            staminaSlider.value = currentStamina;
         } else if (currentStamina == 0) {
             staminaDepleted = true;
         } 
