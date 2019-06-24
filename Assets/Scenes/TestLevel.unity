@@ -3816,6 +3816,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8893345273439233932, guid: ae9b551f14a1a024780c710abe80d452,
+        type: 3}
+      propertyPath: deselectOpacity.rgba
+      value: 1325400063
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae9b551f14a1a024780c710abe80d452, type: 3}
 --- !u!4 &4698833549918749575
