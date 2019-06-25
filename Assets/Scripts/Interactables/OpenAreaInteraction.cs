@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class OpenAreaInteraction : MonoBehaviour, IInteractable {
     public Area AreaToOpen;
@@ -20,8 +18,6 @@ public class OpenAreaInteraction : MonoBehaviour, IInteractable {
         if (PMoney.DecreaseMoney(CostToOpen)) {
             AreaToOpen.Open();
             RemoveBlockage();
-        } else {
-            // Todo: Inform player "Funds lacking"
         }
     }
 
@@ -36,8 +32,15 @@ public class OpenAreaInteraction : MonoBehaviour, IInteractable {
      * Returns true if given player can interact with this
      */
     public bool CanInteract(GameObject Player) {
+        PlayerDetails PlayerDets = Player.GetComponent<PlayerDetails>();
         PlayerMoney PMoney = Player.GetComponent<PlayerMoney>();
-        return PMoney.GetPlayerMoney() >= CostToOpen;
+
+        if (PMoney.GetPlayerMoney() >= CostToOpen) {
+            return true;
+        } else if (PlayerDets != null) {
+            PlayerDets.PlayerUI.MoneyRedFlashAnim();
+        }
+        return false;
     }
 
     void RemoveBlockage() {

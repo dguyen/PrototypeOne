@@ -1,23 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+﻿using UnityEngine;
 
 public class PlayerMoney : MonoBehaviour {
     public int initialPlayerMoney = 500;
-    public TextMeshProUGUI moneyText;
     [HideInInspector] public PlayerDetails playerDetails;
 
     private int playerMoney = 0;
 
     public void Start() {
         playerDetails = GetComponent<PlayerDetails>();
-        if (playerDetails != null) {
-            moneyText = playerDetails.PlayerUI.MoneyText;
-        }
         playerMoney = initialPlayerMoney;
-        UpdateUI();
+        if (playerDetails != null) {
+            playerDetails.PlayerUI.UpdateMoney(playerMoney, false);
+        }
     }
 
     public int GetPlayerMoney() {
@@ -33,20 +27,18 @@ public class PlayerMoney : MonoBehaviour {
 
     public bool DecreaseMoney(int money) {
         if (playerMoney - money < 0 || money <= 0) {
+            playerDetails.PlayerUI.MoneyRedFlashAnim();
             return false;
         }
         SetMoney(playerMoney - money);
+        playerDetails.PlayerUI.MoneyDeductAnim();
         return true;
     }
 
     private void SetMoney(int money) {
         playerMoney = money;
-        UpdateUI();
-    }
-
-    private void UpdateUI() {
-        if (moneyText) {
-            moneyText.text = playerMoney.ToString();
+        if (playerDetails != null) {
+            playerDetails.PlayerUI.UpdateMoney(playerMoney, true);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BuyRefillInteraction : MonoBehaviour, IInteractable {
     public GameObject Item;
@@ -48,13 +46,14 @@ public class BuyRefillInteraction : MonoBehaviour, IInteractable {
     }
 
     public bool CanInteract(GameObject Player) {
+        PlayerDetails PlayerDets = Player.GetComponent<PlayerDetails>();
         Inventory PInventory = Player.GetComponent<Inventory>();
         PlayerMoney PMoney = Player.GetComponent<PlayerMoney>();
         IEntity FoundPlayerItem = PInventory.GetItemEntity(Entity.GetName());
 
         if (FoundPlayerItem != null && FoundPlayerItem.HasCapability(Capability.REFILLABLE)) {
             RangedWeapon tmpCast = (RangedWeapon)FoundPlayerItem;
-            if (tmpCast.ammoCapacity == tmpCast.GetAmmoCount()) {
+            if (tmpCast.ammoCapacity <= tmpCast.GetAmmoCount()) {
                 // Todo: Inform player "Ammo is already full"
                 // Flash ammo UI?
                 return false;
@@ -62,13 +61,13 @@ public class BuyRefillInteraction : MonoBehaviour, IInteractable {
                 // Player has enough money and can refill
                 return true;
             } else {
-                // Todo: Inform player "Funds lacking"
-                // Flash money red? or indicator red?
+                // Player lacking funds
+                PlayerDets.PlayerUI.MoneyRedFlashAnim();
                 return false;
             }
         } else if(PMoney.GetPlayerMoney() < BuyPrice) {
-            // Todo: Inform player "Funds lacking"
-            // Flash money red? or indicator red?
+            // Player lacking funds
+            PlayerDets.PlayerUI.MoneyRedFlashAnim();
             return false;
         } else {
             // Player has enough money and can purchase Entity
