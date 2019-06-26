@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+﻿using UnityEngine;
 
 public class Weapon : Entity {
     public int pointsPerHit;
     public int damagePerHit;
     public float attackDelay;
     [HideInInspector] public PlayerMoney playerMoney;
-    [HideInInspector] public TextMeshProUGUI ammoCountText;
+    [HideInInspector] public PlayerDetails playerDetails;
     [HideInInspector] public Inventory inventory;
 
     public virtual void Start() {
@@ -22,13 +18,22 @@ public class Weapon : Entity {
         }
     }
 
+    /**
+     * Returns true if weapon is selected within inventory
+     */
     public bool WeaponSelected() {
         return inventory.enabled && inventory.GetSelectedItem() == gameObject;
     }
 
+    /**
+     * Returns true if weapon can be fired
+     */
     public virtual bool CanShoot() {
         return WeaponSelected();
     }
 
+    /**
+     * Will run while weapon can be fired
+     */
     public virtual void WeaponActive() {}
 }

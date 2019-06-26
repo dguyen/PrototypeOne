@@ -111,7 +111,7 @@ public class Inventory : MonoBehaviour {
 
         ((Entity)entity).playerControlScheme = playerControlScheme;
         ((Weapon)entity).playerMoney = playerMoney;
-        ((Weapon)entity).ammoCountText = playerDetails.PlayerUI.AmmoCountText;
+        ((Weapon)entity).playerDetails = playerDetails;
         ((Weapon)entity).inventory = this;
 
         for (int i = 0; i < storedObjects.Length; i++) {

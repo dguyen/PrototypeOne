@@ -1,4 +1,6 @@
-﻿public class RangedWeapon : Weapon {
+﻿using UnityEngine;
+
+public class RangedWeapon : Weapon {
     public int ammoCapacity = 20;
     public float range = 100f;
 
@@ -11,13 +13,20 @@
         UpdateAmmoCount();
     }
 
+    public override void Update() {
+        base.Update();
+        if (Input.GetButtonDown("Fire1_P" + playerControlScheme) && GetAmmoCount() <= 0) {
+            playerDetails.PlayerUI.NoAmmoAnim();
+        }
+    }
+
     public virtual void OnEnable() {
         UpdateAmmoCount();
     }
 
     public virtual void OnDisable() {
-        if (ammoCountText) {
-            ammoCountText.text = "";
+        if (playerDetails != null) {
+            playerDetails.PlayerUI.UpdateAmmo(0);
         }
     }
 
@@ -26,8 +35,8 @@
     }
 
     public void UpdateAmmoCount() {
-        if (ammoCountText && gameObject.activeSelf) {
-            ammoCountText.text = ammoCount.ToString() + "/" + ammoCapacity;
+        if (gameObject.activeSelf && playerDetails != null) {
+            playerDetails.PlayerUI.UpdateAmmo(ammoCount);
         }
     }
 

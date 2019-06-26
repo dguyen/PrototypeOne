@@ -18,9 +18,13 @@ public class PlayerUI: MonoBehaviour {
     private bool lerpMoney = false;
     private float lerp = 0f;
 
+    // Ammo related variables
+    private Animator ammoAnimator;
+
     private void Start() {
-        AmmoCountText.text = "0/0";
+        AmmoCountText.text = "0";
         moneyAnimator = MoneyText.GetComponent<Animator>();
+        ammoAnimator = AmmoCountText.GetComponent<Animator>();
     }
 
     private void Update() {
@@ -43,6 +47,13 @@ public class PlayerUI: MonoBehaviour {
         }
     }
 
+    /**
+     * Update PlayerAmmo
+     */
+    public void UpdateAmmo(int newAmmoValue) {
+        AmmoCountText.text = newAmmoValue.ToString();
+    }
+
     private void LerpMoney() {
         lerp += Time.deltaTime;
         int lerpedMoney = Mathf.RoundToInt(Mathf.LerpUnclamped(oldMoney, newMoney, lerp / 2));
@@ -62,6 +73,14 @@ public class PlayerUI: MonoBehaviour {
     
     public void MoneyDeductAnim() {
         moneyAnimator.SetTrigger("NoFunds");
+    }
+
+    public void NoAmmoAnim() {
+        ammoAnimator.SetTrigger("NoAmmo");
+    }
+    
+    public void RefillAmmoAnim() {
+        ammoAnimator.SetTrigger("RefillAmmo");
     }
     /**
      * End Animations ----------------------------

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerInteract : MonoBehaviour, IAction {
@@ -14,10 +12,12 @@ public class PlayerInteract : MonoBehaviour, IAction {
 
     private Camera m_Camera;
     private Animator sliderAnimator;
-    private IInteractable tmpInteractable;
+    private IInteractable CurrentInteractable;
+    private GameObject CurrentObject;
     private bool hasActed = false;
     private float timer = 0f;
     private bool sliderVisible = false;
+    private bool IsInteracting = false;
 
     void Awake() {
         playerDetails = GetComponent<PlayerDetails>();
@@ -33,36 +33,41 @@ public class PlayerInteract : MonoBehaviour, IAction {
 
     void Update() {
         UpdateSliderPosition();
-        if (Input.GetButton("Interact_P" + playerControlScheme) && CanDo() && !hasActed) {
+        if (Input.GetButtonDown("Interact_P" + playerControlScheme) && CanDo()) {
+            IsInteracting = true;
+        }
+
+        if (Input.GetButton("Interact_P" + playerControlScheme) && !hasActed && IsInteracting && CanDo()) {
             if (timer == 0f) {
                 SetupSlider();
                 DisplaySlider(true);
-            } else if (timer >= tmpInteractable.GetInteractDuration()) {
+            } else if (timer >= CurrentInteractable.GetInteractDuration()) {
                 hasActed = true;
                 Act();
-                timer = 0f;
-                DisplaySlider(false);
+                ResetInteraction();
             }
             UpdateSlider();
             timer += Time.deltaTime;
         } else if (Input.GetButtonUp("Interact_P" + playerControlScheme)) {
-            timer = 0f;
             hasActed = false;
-            UpdateSlider();
-            if (tmpInteractable != null) {
-                DisplaySlider(false);
-            }
+            ResetInteraction();
         } else if (sliderVisible) {
-            // Player has exited the Interact zone but is still holding down the Interact key
-            timer = 0f;
-            DisplaySlider(false);
-            UpdateSlider();
+            ResetInteraction();
         }
     }
 
+    private void ResetInteraction() {
+        CurrentInteractable = null;
+        CurrentObject = null;
+        IsInteracting = false;
+        timer = 0f;
+        DisplaySlider(false);
+        UpdateSlider();
+    }
+
     private void SetupSlider() {
-        if (tmpInteractable != null) {
-            interactSlider.maxValue = tmpInteractable.GetInteractDuration();
+        if (CurrentInteractable != null) {
+            interactSlider.maxValue = CurrentInteractable.GetInteractDuration();
         }
         interactSlider.value = 0;
     }
@@ -89,7 +94,24 @@ public class PlayerInteract : MonoBehaviour, IAction {
         interactSlider.transform.position = Vector2.Lerp(interactSlider.transform.position, newPos, 0.6f);
     }
 
+    /**
+     * Returns true if the given transform is within the given distance to the player
+     */
+    private bool InRange(Transform other, float distance) {
+        return (transform.position - other.transform.position).sqrMagnitude <= distance;
+    }
+
     public bool CanDo() {
+        // If currently interacting, check if still in range
+        if (CurrentInteractable != null && InRange(CurrentObject.transform, interactRadius)) {
+            return true;
+        } else {
+            CurrentInteractable = GetClosestInteractable();
+        }
+        return CurrentInteractable != null;
+    }
+
+    private IInteractable GetClosestInteractable() {
         Collider[] colliders = Physics.OverlapSphere (transform.position, interactRadius);
         IInteractable closestInteractable = null;
         float minSqrDistance = Mathf.Infinity;
@@ -101,17 +123,17 @@ public class PlayerInteract : MonoBehaviour, IAction {
                 if (sqrDistanceToCenter < minSqrDistance && foundInteractable.CanInteract(gameObject)) {
                     minSqrDistance = sqrDistanceToCenter;
                     closestInteractable = foundInteractable;
+                    CurrentObject = colliders[i].gameObject;
                 }
             }
         }
-        tmpInteractable = closestInteractable;
-        return tmpInteractable != null;
+        return closestInteractable;
     }
 
     public void Act() {
-        if (CanDo() && tmpInteractable != null) {
-            tmpInteractable.Interact(gameObject);
-            tmpInteractable = null;
+        if (CanDo() && CurrentInteractable != null) {
+            CurrentInteractable.Interact(gameObject);
+            CurrentInteractable = null;
         }
     }
 }

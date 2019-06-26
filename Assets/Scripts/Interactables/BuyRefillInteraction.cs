@@ -24,6 +24,7 @@ public class BuyRefillInteraction : MonoBehaviour, IInteractable {
 
     public void Interact(GameObject Player) {
         if (CanInteract(Player)) {
+            PlayerDetails PlayerDets = Player.GetComponent<PlayerDetails>();
             Inventory PInventory = Player.GetComponent<Inventory>();
             PlayerMoney PMoney = Player.GetComponent<PlayerMoney>();
             IEntity FoundPlayerItem = PInventory.GetItemEntity(Entity.GetName());
@@ -31,8 +32,7 @@ public class BuyRefillInteraction : MonoBehaviour, IInteractable {
             if (FoundPlayerItem != null && FoundPlayerItem.HasCapability(Capability.REFILLABLE)) {
                 RangedWeapon tmpCast = (RangedWeapon)FoundPlayerItem;
                 tmpCast.RefillAmmo();
-                // Todo: Indicate to player that ammo has been refilled
-                // Flash ammo UI?
+                PlayerDets.PlayerUI.RefillAmmoAnim(); 
             } else {
                 PInventory.AddItem(Instantiate(Item, transform.position, Quaternion.identity));
                 PMoney.DecreaseMoney(BuyPrice);
@@ -54,8 +54,8 @@ public class BuyRefillInteraction : MonoBehaviour, IInteractable {
         if (FoundPlayerItem != null && FoundPlayerItem.HasCapability(Capability.REFILLABLE)) {
             RangedWeapon tmpCast = (RangedWeapon)FoundPlayerItem;
             if (tmpCast.ammoCapacity <= tmpCast.GetAmmoCount()) {
-                // Todo: Inform player "Ammo is already full"
-                // Flash ammo UI?
+                // Ammo is already full
+                PlayerDets.PlayerUI.RefillAmmoAnim(); // Use same anim as refill
                 return false;
             } else if (PMoney.GetPlayerMoney() >= RefillPrice) {
                 // Player has enough money and can refill

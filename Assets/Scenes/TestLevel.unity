@@ -1929,7 +1929,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialPlayerMoney: 1000
-  moneyText: {fileID: 0}
   playerDetails: {fileID: 0}
 --- !u!1 &1293869303
 GameObject:
@@ -3804,6 +3803,26 @@ PrefabInstance:
     - target: {fileID: 4818388567064453076, guid: ae9b551f14a1a024780c710abe80d452,
         type: 3}
       propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818388567064453076, guid: ae9b551f14a1a024780c710abe80d452,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818388567064453076, guid: ae9b551f14a1a024780c710abe80d452,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818388567064453076, guid: ae9b551f14a1a024780c710abe80d452,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4818388567064453076, guid: ae9b551f14a1a024780c710abe80d452,
+        type: 3}
+      propertyPath: m_fontColor.r
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 478903996735421743, guid: ae9b551f14a1a024780c710abe80d452,
